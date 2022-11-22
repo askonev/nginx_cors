@@ -1,0 +1,16 @@
+{
+    "server": {
+      "token": {
+        "enable": false,
+        "secret": "secret",
+        "authorizationHeader": "Authorization"
+      }
+    },
+    "plugins": {
+        "pluginsData": [
+          "http://192.168.0.153:8080/initOnSelectionChanged/helloworld/config.json",
+          "http://192.168.0.153:8080/helloworld/config.json",
+          "http://192.168.0.153:8080/chess/config.json"
+        ]
+    }
+  }
