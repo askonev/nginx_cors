@@ -2,7 +2,7 @@ version: '3'
 
 services:
   web:
-    image: nginx
+    image: nginx:latest
     volumes:
     # data shared
       - type: bind
@@ -15,5 +15,6 @@ services:
         read_only: true
     ports:
       - "8080:80"
+    restart: on-failure
     environment:
       - NGINX_PORT=80
