@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>DocsAPI</title>
+</head>
+
+<body style="margin: 0;">
+    <script type="text/javascript" src="http://192.168.0.153/web-apps/apps/api/documents/api.js">
+    </script>
+
+    <button onclick="javascript:insertImages();" style="height:12vh; width:12vh;">InsertImages</button>
+    <button onclick="javascript:showMessage();" style="height:12vh; width:12vh;">showMessage</button>
+    <br>
+
+    <div id="placeholder"></div>
+
+    <script type="text/javascript">
+
+        var ip = "192.168.4.41"
+        var nginx_port = "8080"
+        var type = "mobile"
+        var height = "100%"
+        var width = "100%"
+
+        var uniqueId = Date.now().toString(36) + Math.random().toString(36).substring(2);
+
+        function insertImages(url = `http://${ip}:${nginx_port}/images/dev.png`) {
+
+            console.log(url)
+
+            window.docEditor.insertImage({
+                "images": [
+                    {
+                        "c": "add",
+                        "fileType": "png",
+                        "url": url
+                    },
+                ]
+            });
+        }
+
+        function showMessage(message = 'Message') {
+            window.docEditor.showMessage(message);
+        }
+
+
+        var onRequestInsertImage = function (event) {
+            docEditor.insertImage({
+                "c": event.data.c,
+                "images": [
+                    {
+                        "fileType": "png",
+                        "url": `http://${ip}:${nginx_port}/images/png.png`
+                    },
+                ]
+            });
+        };
+
+        // Init DocsAPI
+        window.docEditor = new DocsAPI.DocEditor("placeholder",
+            {
+                "type": type,
+                "document": {
+                    "fileType": "xlsx",
+                    "info": {
+                        "owner": "John Smith",
+                        "favorite": true,
+                        "folder": "Example Files",
+                        "sharingSettings": [
+                            {
+                                "permissions": "Full Access",
+                                "user": "John Smith"
+                            },
+                            {
+                                "isLink": true,
+                                "permissions": "Read Only",
+                                "user": "External link"
+                            },
+                        ],
+                    },
+                    "key": uniqueId.toString(),
+                    "title": "empty.xlsx",
+                    "url": `http://${ip}:${nginx_port}/files/empty.xlsx`
+                },
+                "documentType": "cell",
+                "editorConfig": {
+                    "customization": {
+                        "zoom": 120,
+                    },
+                },
+                "height": height,
+                "width": width,
+                events: {
+                    // "onDocumentReady": () => { window.connector = docEditor.createConnector(); },
+                    "onRequestInsertImage": onRequestInsertImage,
+                }
+            });
+    </script>
+</body>
+
+</html>

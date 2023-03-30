@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html style="height: 100%;">
+
+<head>
+    <title>DocsAPI</title>
+</head>
+
+<body style="height: 100%; margin: 0;">
+    <button onclick="javascript:getAllComments();" style="height:50px; width:100px;">comment</button>
+    <button onclick="javascript:addHello();" style="height:50px; width:100px;">hello</button>
+    <button onclick="javascript:addBlockLvlSdt();" style="height:50px; width:100px;">BlockLvlSdt</button>
+    <button onclick="javascript:addInlineLvlSdt();" style="height:50px; width:100px;">InlineLvlSdt</button>
+    <button onclick="javascript:attachOnChangeContentControl();" style="height:50px; width:100px;">onChangeCC</button>
+    <button onclick="javascript:getAllContentControls();" style="height:50px; width:100px;">get all CC</button>
+    <button onclick="javascript:insertAndReplace();" style="height:50px; width:100px;">insertAndReplace</button>
+
+    <div id="placeholder" style="height: 500px"></div>
+
+    <script type="text/javascript" src="http://192.168.4.41/web-apps/apps/api/documents/api.js"></script>
+    <script type="text/javascript">
+
+        var uniqueId = Date.now().toString(36) + Math.random().toString(36).substring(2);
+
+        var ip = '192.168.4.41'
+        var file = 'empty.docx'
+        var url = `http://${ip}:8080/files/${file}`
+
+        var _type = "desktop"
+        var _height = "600" //bug
+        var _width = "100%"
+
+
+        function insertAndReplace() {
+            window.connector.executeMethod("GetAllContentControls", null, function (cc_list) {
+
+                console.log(cc_list)
+
+                var sIternalId = cc_list[0].InternalId.toString(); // first LvlSdt
+
+                var arrDocuments = [{
+                    "Props": {
+                        "InternalId": sIternalId,
+                        "Id": 100,
+                        "Tag": "CC_Tag",
+                        "Lock": 3
+                    },
+                    "Script": "var oParagraph = Api.CreateParagraph();oParagraph.AddText('Hello world!');Api.GetDocument().InsertContent([oParagraph]);"
+                }]
+
+                window.connector.executeMethod("InsertAndReplaceContentControls", [arrDocuments]);
+            });
+        }
+
+
+        function createConnector() {
+            window.connector = docEditor.createConnector();
+        }
+
+        window.docEditor = new DocsAPI.DocEditor("placeholder",
+            {
+                "type": _type,
+                "document": {
+                    "fileType": "docx",
+                    "info": {
+                        "owner": "John Smith",
+                        "favorite": true,
+                        "folder": "Example Files",
+                        "sharingSettings": [
+                            {
+                                "permissions": "Full Access",
+                                "user": "John Smith"
+                            },
+                            {
+                                "isLink": true,
+                                "permissions": "Read Only",
+                                "user": "External link"
+                            },
+                        ],
+                    },
+                    "key": uniqueId.toString(),
+                    "title": "empty.docx",
+                    "url": url
+                },
+                "documentType": "word",
+                "editorConfig": {
+                    "customization": {
+                        "zoom": 120,
+                    },
+                    // "callbackUrl": "http://192.168.229.28:83/editors/callback",
+                },
+                "height": _height,
+                "width": _width,
+                events: {
+                    onDocumentReady: createConnector
+                }
+            });
+
+
+
+        function getAllComments() {
+            console.log('GetAllComments')
+            connector.executeMethod("GetAllComments", [], (callback_arg) => { console.log(callback_arg) });
+        };
+
+        function addHello() {
+            connector.callCommand(function () {
+                var oDocument = Api.GetDocument();
+                var oParagraph = Api.CreateParagraph();
+                oParagraph.AddText("Hello");
+                oDocument.InsertContent([oParagraph]);
+                Api.AddComment(oParagraph, "text", "author")
+            },
+                (callback_arg) => { console.log('test:', callback_arg) }
+            );
+        };
+
+        function addBlockLvlSdt() {
+
+            // console.log(uniqueId)
+
+            let config = {
+                type: 1, //  1 (block), 2 (inline)
+                property: {
+                    "Appearance": 1,
+                    "Id": 123,
+                    "Lock": 3,
+                    "Tag": "{TAG}",
+                    "PlaceHolderText": "BlockLvlSdt"
+                }
+            }
+
+            connector.executeMethod("AddContentControl", [config.type, config.property], (callback_arg) => {
+                // console.log(callback_arg);
+            });
+        }
+
+        function addInlineLvlSdt() {
+
+            let config = {
+                type: 2, // 1 (block), 2 (inline)
+                property: {
+                    "Appearance": 1,
+                    "Id": 321,
+                    "Lock": 3,
+                    "Tag": "{TAG}",
+                    "PlaceHolderText": "InlineLvlSdt"
+                }
+            }
+
+            connector.executeMethod("AddContentControl", [config.type, config.property], (callback_arg) => {
+                // console.log(callback_arg);
+            });
+        }
+
+        function attachOnChangeContentControl() {
+            connector.attachEvent("onChangeContentControl", function () {
+                console.log("event: onChangeContentControl");
+            });
+        };
+
+        function getAllContentControls() {
+            connector.executeMethod("GetAllContentControls", [], (callback_arg) => {
+                if (typeof callback_arg[0] != "undefined") {
+                    // console.log(callback_arg[0].Tag);
+                    for (var i = 0; i < callback_arg.length; i++) {
+                        // console.log(i)
+                        console.log(callback_arg[i].Tag);
+                    }
+                }
+            });
+        };
+
+    </script>
+</body>
+
+</html>
