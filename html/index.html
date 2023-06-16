@@ -64,10 +64,10 @@
       var uniqueId =
         Date.now().toString(36) + Math.random().toString(36).substring(2);
 
-      // var ip = "192.168.0.153";
-      // var file = "empty.docx";
-      // var url = `http://${ip}:8080/files/${file}`;
-      var url = 'https://testing-documentserver-files.s3.amazonaws.com/public_documents/empty.docx'
+      var ip = "192.168.0.153";
+      var file = "empty.docx";
+      var url = `http://${ip}:7080/files/${file}`;
+      // var url = 'https://testing-documentserver-files.s3.amazonaws.com/public_documents/empty.docx'
       console.log(url);
 
       var _type = "desktop";
