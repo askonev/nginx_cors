@@ -35,12 +35,12 @@ function GetRewiewReport() {
   });
 }
 
-function insertAndReplace() {
+function insertAndReplaceProps() {
   window.connector.executeMethod(
     "GetAllContentControls",
     null,
     function (cc_list) {
-      console.log(cc_list);
+      console.log("content control list", cc_list);
 
       var sIternalId = cc_list[0].InternalId.toString(); // first LvlSdt
 
@@ -49,11 +49,15 @@ function insertAndReplace() {
           Props: {
             InternalId: sIternalId,
             Id: 100,
-            Tag: "CC_Tag",
+            Tag: "Tag",
             Lock: 3,
+            Alias: "alias",
+            PlaceHolderText: "custom_placeholder",
+            Appearance: 1,
+            Color: { R: 100, G: 100, B: 100 },
           },
-          Script:
-            "var oParagraph = Api.CreateParagraph();oParagraph.AddText('Hello world!');Api.GetDocument().InsertContent([oParagraph]);",
+          // Script:
+          //   "var oParagraph = Api.CreateParagraph();oParagraph.AddText('Updated container');Api.GetDocument().InsertContent([oParagraph]);",
         },
       ];
 
