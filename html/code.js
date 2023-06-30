@@ -79,7 +79,8 @@ function addHello() {
       oParagraph.AddText("Hello");
       oDocument.InsertContent([oParagraph]);
       Api.AddComment(oParagraph, "text", "author");
-    }, function (callback_arg) {
+    },
+    function (callback_arg) {
       console.log("test:", callback_arg);
     }
   );
