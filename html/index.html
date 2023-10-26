@@ -27,10 +27,13 @@
     get all CC
   </button>
   <button onclick="javascript:insertAndReplaceProps();" style="height: 50px; width: 100px">
-    Raplace props
+    Raplace
   </button>
   <button onclick="javascript:GetRewiewReport();" style="height: 50px; width: 100px">
     GetRewiewReport
+  </button>
+  <button onclick="javascript:pullMetaChange()" style="height: 50px; width: 100px;">
+    Pull meta
   </button>
   <!-- <button onclick="javascript:TrackRevisionON();" style="height:50px; width:100px;">TrackRevisionON</button>
     <button onclick="javascript:TrackRevisionOFF();" style="height:50px; width:100px;">TrackRevisionOFF</button> -->
@@ -52,7 +55,7 @@
     console.log(`file url: ${url}`);
 
     var _type = "desktop";
-    var _height = "800"; //bug
+    var _height = "90%"; //bug
     var _width = "100%";
 
     function createConnector() {
@@ -94,7 +97,8 @@
       height: _height,
       width: _width,
       events: {
-        onDocumentReady: createConnector,
+        "onDocumentReady": createConnector,
+        "onMetaChange": onMetaChange,
       },
     });
   </script>

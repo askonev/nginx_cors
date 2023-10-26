@@ -14,6 +14,59 @@
 //     })
 // }
 
+// EVENTS
+
+// direct way
+var onMetaChange = function (event) {
+  console.log(event);
+  console.log(event.data.title);
+};
+
+// through connector
+function attachOnChangeContentControl() {
+  connector.attachEvent("onChangeContentControl", function () {
+    console.log("event: onChangeContentControl");
+  });
+}
+
+// METHODS
+
+function pullMetaChange() {
+  // Define the URL and request data
+  const url = "http://192.168.0.153:3000/coauthoring/CommandService.ashx";
+  const data = {
+    c: "meta",
+    key: uniqueId,
+    meta: {
+      title: "New title",
+    },
+  };
+
+  // Create the request options
+  const requestOptions = {
+    method: "POST",
+    mode: "no-cors", // Set the mode to 'no-cors'
+    headers: {
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify(data),
+  };
+
+  fetch(url, requestOptions)
+    .then((response) => {
+      if (!response.ok) {
+        throw new Error("Network response was not ok");
+      }
+      return response.json(); // Parse the response as JSON if needed
+    })
+    .then((data) => {
+      console.log(data); // Handle the response data here
+    })
+    .catch((error) => {
+      console.error("Error:", error);
+    });
+}
+
 function GetRewiewReport() {
   connector.callCommand(function () {
     var odoc = Api.GetDocument();
@@ -133,12 +186,6 @@ function addInlineLvlSdt() {
       // console.log(callback_arg);
     }
   );
-}
-
-function attachOnChangeContentControl() {
-  connector.attachEvent("onChangeContentControl", function () {
-    console.log("event: onChangeContentControl");
-  });
 }
 
 function getAllContentControls() {
