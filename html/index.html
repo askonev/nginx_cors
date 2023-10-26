@@ -42,10 +42,14 @@
       Date.now().toString(36) + Math.random().toString(36).substring(2);
 
     var ip = "192.168.0.153";
+    var callbackurl = '' // 'https://a54124be-9d23-4b1d-b43d-de66863b94f5.mock.pstmn.io' // 'https://eowzrjdoaq8tuyh.m.pipedream.net';
+    // var file = "empty.docx";
     var file = "empty.docx";
     var url = `http://${ip}:7080/files/${file}`;
     // var url = 'https://testing-documentserver-files.s3.amazonaws.com/public_documents/empty.docx'
-    console.log(url);
+
+    console.log(uniqueId)
+    console.log(`file url: ${url}`);
 
     var _type = "desktop";
     var _height = "800"; //bug
@@ -85,7 +89,7 @@
           zoom: 120,
           integrationMode: "embed",
         },
-        // "callbackUrl": "http://192.168.229.28:83/editors/callback",
+        "callbackUrl": callbackurl,
       },
       height: _height,
       width: _width,
@@ -95,5 +99,4 @@
     });
   </script>
 </body>
-
 </html>

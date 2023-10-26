@@ -42,7 +42,7 @@ function insertAndReplaceProps() {
     function (cc_list) {
       console.log("content control list", cc_list);
 
-      var sIternalId = cc_list[0].InternalId.toString(); // first LvlSdt
+      var sIternalId = cc_list[0].InternalId.toString(); // first Content Control
 
       var arrDocuments = [
         {
@@ -83,6 +83,7 @@ function addHello() {
       oParagraph.AddText("Hello");
       oDocument.InsertContent([oParagraph]);
       Api.AddComment(oParagraph, "text", "author");
+      return 'text & comment added'
     },
     function (callback_arg) {
       console.log("test:", callback_arg);
