@@ -35,6 +35,9 @@
   <button onclick="javascript:pullMetaChange()" style="height: 50px; width: 100px;">
     Pull meta
   </button>
+  <button id="createSlide" onclick="javascript:createSlide()" style="height: 50px; width: 100px;">
+    Create Slide
+  </button>
   <!-- <button onclick="javascript:TrackRevisionON();" style="height:50px; width:100px;">TrackRevisionON</button>
     <button onclick="javascript:TrackRevisionOFF();" style="height:50px; width:100px;">TrackRevisionOFF</button> -->
 
@@ -46,8 +49,7 @@
 
     var ip = "192.168.0.153";
     var callbackurl = '' // 'https://a54124be-9d23-4b1d-b43d-de66863b94f5.mock.pstmn.io' // 'https://eowzrjdoaq8tuyh.m.pipedream.net';
-    // var file = "empty.docx";
-    var file = "empty.docx";
+    var file = "empty.docx"; // var file = "empty.pptx";
     var url = `http://${ip}:7080/files/${file}`;
     // var url = 'https://testing-documentserver-files.s3.amazonaws.com/public_documents/empty.docx'
 
@@ -65,7 +67,7 @@
     window.docEditor = new DocsAPI.DocEditor("placeholder", {
       type: _type,
       document: {
-        fileType: "docx",
+        fileType: "docx", // fileType: "pptx",
         info: {
           owner: "John Smith",
           favorite: true,
@@ -83,10 +85,10 @@
           ],
         },
         key: uniqueId.toString(),
-        title: "empty.docx",
+        title: "empty.docx", // title: "empty.pptx",
         url: url,
       },
-      documentType: "word",
+      documentType: "word", // documentType: "slide",
       editorConfig: {
         customization: {
           zoom: 120,
