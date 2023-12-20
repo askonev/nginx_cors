@@ -88,35 +88,69 @@ function GetRewiewReport() {
   });
 }
 
+function getCurrentContentControl() {
+  window.connector.executeMethod("GetCurrentContentControlPr", [], (sdt) => {
+
+    console.log(sdt)
+    console.log(sdt.Tag)
+
+    // debugger
+
+    // window.Asc.scope = {
+    //   ccTag : sdt.Tag
+    // };
+
+    // console.log(sdt)
+
+    connector.callCommand(function() {
+      console.log('call callCommand()')
+      // var oDocument = Api.GetDocument();
+      // console.log(oDocument)
+      // var aContentControls = oDocument.GetAllContentControls();
+      // console.log(aContentControls)
+      // // var aContentControls = Api.pluginMethod_GetAllContentControls();
+      
+      // for (var oContentControl of aContentControls) {
+      //   if (oContentControl.GetTag() === Asc.scope.ccTag) {
+      //     var oRange = oContentControl.GetRange();
+      //     var text = oRange.GetText();
+      //     console.log(text)
+      //     return text;
+      //     }
+      //   }
+      }, false, true, function(text) {
+      // console.log(text)
+    })
+  });
+}
+
 function insertAndReplaceProps() {
-  window.connector.executeMethod(
-    "GetAllContentControls",
-    null,
-    function (cc_list) {
-      console.log("content control list", cc_list);
-
-      var sIternalId = cc_list[0].InternalId.toString(); // first Content Control
-
-      var arrDocuments = [
-        {
-          Props: {
-            InternalId: sIternalId,
-            Id: 100,
-            Tag: "Tag",
-            Lock: 3,
-            Alias: "alias",
-            PlaceHolderText: "custom_placeholder",
-            Appearance: 1,
-            Color: { R: 100, G: 100, B: 100 },
+    window.connector.executeMethod("GetCurrentContentControl", [], function (InternalId) {
+      if(InternalId) {
+        var arrDocuments = [
+          {
+            Props: {
+              InternalId: InternalId,
+              Id: 100,
+              Tag: "Tag",
+              Lock: 1,
+              Alias: "alias",
+              PlaceHolderText: "custom_placeholder",
+              Appearance: 1,
+              Color: { R: 100, G: 100, B: 100 },
+            },
+            Script:
+              "var oParagraph = Api.CreateParagraph();oParagraph.AddText('Updated container');Api.GetDocument().InsertContent([oParagraph]);",
           },
-          // Script:
-          //   "var oParagraph = Api.CreateParagraph();oParagraph.AddText('Updated container');Api.GetDocument().InsertContent([oParagraph]);",
-        },
-      ];
-
-      window.connector.executeMethod("InsertAndReplaceContentControls", [
-        arrDocuments,
-      ]);
+        ];
+  
+        window.connector.executeMethod("InsertAndReplaceContentControls", [
+          arrDocuments,
+        ]);
+      }
+      else {
+        console.log('Please select CC')
+      }
     }
   );
 }
