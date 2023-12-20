@@ -1,6 +1,6 @@
 // function TrackRevisionON() {
 //     connector.callCommand(function () {
-//         let odoc = Api.GetDocument();
+//         var odoc = Api.GetDocument();
 //         odoc.SetTrackRevisions(true);
 //         console.log('on track')
 //     })
@@ -8,7 +8,7 @@
 
 // function TrackRevisionOFF() {
 //     connector.callCommand(function () {
-//         let odoc = Api.GetDocument();
+//         var odoc = Api.GetDocument();
 //         odoc.SetTrackRevisions(false);
 //         console.log('off track')
 //     })
@@ -74,8 +74,8 @@ function GetRewiewReport() {
     var report = odoc.GetReviewReport();
     var opar = Api.CreateParagraph();
     if (typeof report["Anonymous"] === "object") {
-      for (let i = 0; i < report["Anonymous"].length; i++) {
-        let change_info = report["Anonymous"][i];
+      for (var i = 0; i < report["Anonymous"].length; i++) {
+        var change_info = report["Anonymous"][i];
         console.log(change_info);
       }
       opar.AddText("Anonymous: " + report["Anonymous"][0]);
@@ -147,7 +147,7 @@ function addHello() {
 function addBlockLvlSdt() {
   // console.log(uniqueId)
 
-  let config = {
+  var config = {
     type: 1, //  1 (block), 2 (inline)
     property: {
       Appearance: 1,
@@ -168,7 +168,7 @@ function addBlockLvlSdt() {
 }
 
 function addInlineLvlSdt() {
-  let config = {
+  var config = {
     type: 2, // 1 (block), 2 (inline)
     property: {
       Appearance: 1,
