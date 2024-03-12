@@ -88,6 +88,32 @@ function GetRewiewReport() {
   });
 }
 
+function insertRemoteDoc() {
+  const oControlPrContent = {
+    Props: {
+      Id: 1,
+      Tag: "text block",
+      Lock: 3,
+    },
+    Url: "http://192.168.0.104:7080/files/Lorem_Ipsum.docx",
+    Format: "docx",
+  };
+
+  const arrDocuments = [oControlPrContent];
+
+  connector.executeMethod(
+    "InsertAndReplaceContentControls",
+    [arrDocuments]
+    // (returnValue) => {
+    //   console.log(returnValue)
+    //   // Remove content control
+    //   connector.executeMethod("RemoveContentControl", [
+    //     returnValue[0].InternalId,
+    //   ]);
+    // }
+  );
+}
+
 function getCurrentContentControl() {
   window.connector.executeMethod("GetCurrentContentControlPr", [], (sdt) => {
 
@@ -125,8 +151,11 @@ function getCurrentContentControl() {
 }
 
 function insertAndReplaceProps() {
-    window.connector.executeMethod("GetCurrentContentControl", [], function (InternalId) {
-      if(InternalId) {
+  window.connector.executeMethod(
+    "GetCurrentContentControl",
+    [],
+    function (InternalId) {
+      if (InternalId) {
         var arrDocuments = [
           {
             Props: {
@@ -143,13 +172,12 @@ function insertAndReplaceProps() {
               "var oParagraph = Api.CreateParagraph();oParagraph.AddText('Updated container');Api.GetDocument().InsertContent([oParagraph]);",
           },
         ];
-  
+
         window.connector.executeMethod("InsertAndReplaceContentControls", [
           arrDocuments,
         ]);
-      }
-      else {
-        console.log('Please select CC')
+      } else {
+        console.log("Please select CC");
       }
     }
   );
