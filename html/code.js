@@ -88,14 +88,14 @@ function GetRewiewReport() {
   });
 }
 
-function insertRemoteDoc() {
+function insertAndRemoveCC() {
   const oControlPrContent = {
     Props: {
       Id: 1,
       Tag: "text block",
       Lock: 3,
     },
-    Url: "http://192.168.0.104:7080/files/Lorem_Ipsum.docx",
+    Url: "http://192.168.4.138:7080/files/Lorem_Ipsum.docx",
     Format: "docx",
   };
 
@@ -103,22 +103,21 @@ function insertRemoteDoc() {
 
   connector.executeMethod(
     "InsertAndReplaceContentControls",
-    [arrDocuments]
-    // (returnValue) => {
-    //   console.log(returnValue)
-    //   // Remove content control
-    //   connector.executeMethod("RemoveContentControl", [
-    //     returnValue[0].InternalId,
-    //   ]);
-    // }
+    [arrDocuments],
+    (returnValue) => {
+      console.log(returnValue)
+      // Remove content control
+      connector.executeMethod("RemoveContentControl", [
+        returnValue[0].InternalId,
+      ]);
+    }
   );
 }
 
 function getCurrentContentControl() {
   window.connector.executeMethod("GetCurrentContentControlPr", [], (sdt) => {
-
-    console.log(sdt)
-    console.log(sdt.Tag)
+    console.log(sdt);
+    console.log(sdt.Tag);
 
     // debugger
 
@@ -128,25 +127,30 @@ function getCurrentContentControl() {
 
     // console.log(sdt)
 
-    connector.callCommand(function() {
-      console.log('call callCommand()')
-      // var oDocument = Api.GetDocument();
-      // console.log(oDocument)
-      // var aContentControls = oDocument.GetAllContentControls();
-      // console.log(aContentControls)
-      // // var aContentControls = Api.pluginMethod_GetAllContentControls();
-      
-      // for (var oContentControl of aContentControls) {
-      //   if (oContentControl.GetTag() === Asc.scope.ccTag) {
-      //     var oRange = oContentControl.GetRange();
-      //     var text = oRange.GetText();
-      //     console.log(text)
-      //     return text;
-      //     }
-      //   }
-      }, false, true, function(text) {
-      // console.log(text)
-    })
+    connector.callCommand(
+      function () {
+        console.log("call callCommand()");
+        // var oDocument = Api.GetDocument();
+        // console.log(oDocument)
+        // var aContentControls = oDocument.GetAllContentControls();
+        // console.log(aContentControls)
+        // // var aContentControls = Api.pluginMethod_GetAllContentControls();
+
+        // for (var oContentControl of aContentControls) {
+        //   if (oContentControl.GetTag() === Asc.scope.ccTag) {
+        //     var oRange = oContentControl.GetRange();
+        //     var text = oRange.GetText();
+        //     console.log(text)
+        //     return text;
+        //     }
+        //   }
+      },
+      false,
+      true,
+      function (text) {
+        // console.log(text)
+      }
+    );
   });
 }
 
@@ -280,4 +284,19 @@ function createSlide() {
       console.log("callback command");
     }
   );
+}
+
+function onEncryption(event) {
+  console.log(event);
+  connector.executeMethod("OnEncryption", [
+    {
+      type: "generatePassword",
+      password: "123456",
+      docinfo: "{docinfo}",
+    },
+  ]);
+}
+
+function removeCC() {
+  connector.executeMethod("RemoveContentControl", []);
 }

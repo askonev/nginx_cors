@@ -4,55 +4,34 @@
 <head>
   <title>DocsAPI</title>
   <link rel="stylesheet" href="style.css">
-  <script type="text/javascript" src="http://192.168.0.104:3000/web-apps/apps/api/documents/api.js"></script>
+  <script type="text/javascript" src="http://192.168.4.138:3000/web-apps/apps/api/documents/api.js"></script>
   <script type="text/javascript" src="code.js"></script>
 </head>
 
 <body>
+  <h1></h1>
   <div class="block-1">
     <div class="cde">
       <h3 class="text">CDE</h3>
-      <button onclick="javascript:getAllComments();" style="height: 50px; width: 100px">
-        comment
-      </button>
-      <button onclick="javascript:addHello();" style="height: 50px; width: 100px">
-        hello
-      </button>
-      <button onclick="javascript:addBlockLvlSdt();" style="height: 50px; width: 100px">
-        BlockLvlSdt
-      </button>
-      <button onclick="javascript:addInlineLvlSdt();" style="height: 50px; width: 100px">
-        InlineLvlSdt
-      </button>
-      <button onclick="javascript:attachOnChangeContentControl();" style="height: 50px; width: 100px">
-        onChangeCC
-      </button>
-      <button onclick="javascript:getAllContentControls();" style="height: 50px; width: 100px">
-        get all CC
-      </button>
-      <button onclick="javascript:insertAndReplaceProps();" style="height: 50px; width: 100px">
-        ReplacePr
-      </button>
-      <button onclick="javascript:GetRewiewReport();" style="height: 50px; width: 100px">
-        GetRewiewReport
-      </button>
-      <button onclick="javascript:pullMetaChange()" style="height: 50px; width: 100px;">
-        Pull meta
-      </button>
-      <button onclick="javascript:getCurrentContentControl()" style="height: 50px; width: 100px;">
-        getCurrentCC
-      </button>
-      <button onclick="javascript:insertRemoteDoc()" style="height: 50px; width: 100px;">
-        insertRemoteDoc
-      </button>
+      <button onclick="javascript:getAllComments();">comment</button>
+      <button onclick="javascript:addHello();">hello</button>
+      <button onclick="javascript:addBlockLvlSdt();">BlockLvlSdt</button>
+      <button onclick="javascript:addInlineLvlSdt();">InlineLvlSdt</button>
+      <button onclick="javascript:attachOnChangeContentControl();">onChangeCC</button>
+      <button onclick="javascript:getAllContentControls();">get all CC</button>
+      <button onclick="javascript:removeCC()">RemoveCC</button>
+      <button onclick="javascript:insertAndReplaceProps();">ReplacePr</button>
+      <button onclick="javascript:GetRewiewReport();">GetRewiewReport</button>
+      <button onclick="javascript:pullMetaChange()">Pull meta</button> 
+      <button onclick="javascript:getCurrentContentControl()">getCurrentCC</button>
+      <button onclick="javascript:insertAndRemoveCC()">insertAndRemoveCC</button>
       <!-- <button onclick="javascript:TrackRevisionON();" style="height:50px; width:100px;">TrackRevisionON</button>
       <button onclick="javascript:TrackRevisionOFF();" style="height:50px; width:100px;">TrackRevisionOFF</button> -->
+      <button onclick="javascript:onEncryption()">OnEncryption</button>
     </div>
     <div class="cpe">
       <h3 class="text">CPE</h3>
-      <button id="createSlide" onclick="javascript:createSlide()" style="height: 50px; width: 100px;">
-        Create Slide
-      </button>
+      <button id="createSlide" onclick="javascript:createSlide()">Create Slide</button>
     </div>
   </div>
   <div class="block-2">

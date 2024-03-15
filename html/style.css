@@ -23,3 +23,8 @@
     color: black;
     font-size: 150%;
 }
+
+button {
+  height: 50px;
+  width: 100px;
+}
