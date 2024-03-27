@@ -89,13 +89,16 @@ function GetRewiewReport() {
 }
 
 function insertAndRemoveCC() {
-  const oControlPrContent = {
+
+  var file = 'shape.docx'
+
+  var oControlPrContent = {
     Props: {
       Id: 1,
       Tag: "text block",
       Lock: 3,
     },
-    Url: "http://192.168.4.138:7080/files/Lorem_Ipsum.docx",
+    Url: `http://192.168.0.104:7080/files/template/${file}`,
     Format: "docx",
   };
 
