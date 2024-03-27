@@ -16,7 +16,7 @@ var _url = `http://${ip}:7080/files/${_file}`;
 // var _documentType = "word"
 var _documentType =  "cell"
 // var _documentType = "slide"
-// var _docuemntType = "pdf"
+// var _documentType = "pdf"
 
 var _type = "desktop";
 // var _type = "mobile";
@@ -26,6 +26,8 @@ var _type = "desktop";
 function createConnector() {
   window.connector = docEditor.createConnector();
 }
+
+window.documentType = _documentType
 
 /////////////////////////////////////////////////////////
 

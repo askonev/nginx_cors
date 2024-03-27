@@ -40,13 +40,6 @@ function addHello() {
   );
 }
 
-function getAllComments() {
-  console.log("GetAllComments");
-  connector.executeMethod("GetAllComments", [], (callback_arg) => {
-    console.log(callback_arg);
-  });
-}
-
 function GetRewiewReport() {
   connector.callCommand(function () {
     var odoc = Api.GetDocument();
@@ -214,8 +207,7 @@ function addInlineLvlSdt() {
 }
 
 function insertAndRemoveCC() {
-
-  var file = 'shape.docx'
+  var file = "shape.docx";
 
   var oControlPrContent = {
     Props: {
@@ -233,7 +225,7 @@ function insertAndRemoveCC() {
     "InsertAndReplaceContentControls",
     [arrDocuments],
     (returnValue) => {
-      console.log(returnValue)
+      console.log(returnValue);
       // Remove content control
       connector.executeMethod("RemoveContentControl", [
         returnValue[0].InternalId,
@@ -287,6 +279,12 @@ function remove() {
 
 // CSE
 
+function addComment() {
+  connector.callCommand(function () {
+    Api.AddComment("text", "author");
+  });
+}
+
 // CPE
 
 function createSlide() {
@@ -307,4 +305,38 @@ function createSlide() {
       console.log("callback command");
     }
   );
+}
+
+// Universal
+
+function getAllComments() {
+  switch (window.documentType) {
+    case "word":
+      console.log("GetAllComments");
+      connector.executeMethod("GetAllComments", [], (callback_arg) => {
+        console.log(callback_arg);
+      });
+      break;
+    case "cell":
+      console.log("GetAllComments");
+      connector.callCommand(
+        function () {
+          // var oWorksheet = Api.GetActiveSheet();
+          // oWorksheet.GetRange('A1').SetValue(Asc.scope.text)
+          var oComments = Api.GetComments();
+          var obj = {};
+          obj["text"] = oComments[0].GetText();
+          obj["AuthorName"] = oComments[0].GetAuthorName();
+          return obj;
+        },
+        function (result) {
+          console.log(result);
+        },
+        true
+      );
+      break;
+    case "slide":
+      console.log("GetAllComments");
+      break;
+  }
 }
