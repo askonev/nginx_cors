@@ -22,14 +22,51 @@ var onMetaChange = function (event) {
   console.log(event.data.title);
 };
 
-// through connector
-function attachOnChangeContentControl() {
-  connector.attachEvent("onChangeContentControl", function () {
-    console.log("event: onChangeContentControl");
+// CDE
+
+function addHello() {
+  connector.callCommand(
+    function () {
+      var oDocument = Api.GetDocument();
+      var oParagraph = Api.CreateParagraph();
+      oParagraph.AddText("Hello");
+      oDocument.InsertContent([oParagraph]);
+      Api.AddComment(oParagraph, "text", "author");
+      return "text & comment added";
+    },
+    function (callback_arg) {
+      console.log("test:", callback_arg);
+    }
+  );
+}
+
+function getAllComments() {
+  console.log("GetAllComments");
+  connector.executeMethod("GetAllComments", [], (callback_arg) => {
+    console.log(callback_arg);
   });
 }
 
-// METHODS
+function GetRewiewReport() {
+  connector.callCommand(function () {
+    var odoc = Api.GetDocument();
+    // odoc.SetTrackRevisions(true);
+    var report = odoc.GetReviewReport();
+    var opar = Api.CreateParagraph();
+    if (typeof report["Anonymous"] === "object") {
+      for (var i = 0; i < report["Anonymous"].length; i++) {
+        var change_info = report["Anonymous"][i];
+        console.log(change_info);
+      }
+      opar.AddText("Anonymous: " + report["Anonymous"][0]);
+      odoc.Push(opar);
+      // console.log("Anonymous: " + report["Anonymous"]);
+    } else {
+      console.log("there are no changes");
+    }
+    // odoc.SetTrackRevisions(false);
+  });
+}
 
 function pullMetaChange() {
   // Define the URL and request data
@@ -67,54 +104,29 @@ function pullMetaChange() {
     });
 }
 
-function GetRewiewReport() {
-  connector.callCommand(function () {
-    var odoc = Api.GetDocument();
-    // odoc.SetTrackRevisions(true);
-    var report = odoc.GetReviewReport();
-    var opar = Api.CreateParagraph();
-    if (typeof report["Anonymous"] === "object") {
-      for (var i = 0; i < report["Anonymous"].length; i++) {
-        var change_info = report["Anonymous"][i];
-        console.log(change_info);
-      }
-      opar.AddText("Anonymous: " + report["Anonymous"][0]);
-      odoc.Push(opar);
-      // console.log("Anonymous: " + report["Anonymous"]);
-    } else {
-      console.log("there are no changes");
-    }
-    // odoc.SetTrackRevisions(false);
-  });
+function onEncryption(event) {
+  console.log(event);
+  connector.executeMethod("OnEncryption", [
+    {
+      type: "generatePassword",
+      password: "123456",
+      docinfo: "{docinfo}",
+    },
+  ]);
 }
 
-function insertAndRemoveCC() {
+// Content Controles
 
-  var file = 'shape.docx'
-
-  var oControlPrContent = {
-    Props: {
-      Id: 1,
-      Tag: "text block",
-      Lock: 3,
-    },
-    Url: `http://192.168.0.104:7080/files/template/${file}`,
-    Format: "docx",
-  };
-
-  const arrDocuments = [oControlPrContent];
-
-  connector.executeMethod(
-    "InsertAndReplaceContentControls",
-    [arrDocuments],
-    (returnValue) => {
-      console.log(returnValue)
-      // Remove content control
-      connector.executeMethod("RemoveContentControl", [
-        returnValue[0].InternalId,
-      ]);
+function getAllContentControls() {
+  connector.executeMethod("GetAllContentControls", [], (callback_arg) => {
+    if (typeof callback_arg[0] != "undefined") {
+      // console.log(callback_arg[0].Tag);
+      for (var i = 0; i < callback_arg.length; i++) {
+        // console.log(i)
+        console.log(callback_arg[i].Tag);
+      }
     }
-  );
+  });
 }
 
 function getCurrentContentControl() {
@@ -155,62 +167,6 @@ function getCurrentContentControl() {
       }
     );
   });
-}
-
-function insertAndReplaceProps() {
-  window.connector.executeMethod(
-    "GetCurrentContentControl",
-    [],
-    function (InternalId) {
-      if (InternalId) {
-        var arrDocuments = [
-          {
-            Props: {
-              InternalId: InternalId,
-              Id: 100,
-              Tag: "Tag",
-              Lock: 1,
-              Alias: "alias",
-              PlaceHolderText: "custom_placeholder",
-              Appearance: 1,
-              Color: { R: 100, G: 100, B: 100 },
-            },
-            Script:
-              "var oParagraph = Api.CreateParagraph();oParagraph.AddText('Updated container');Api.GetDocument().InsertContent([oParagraph]);",
-          },
-        ];
-
-        window.connector.executeMethod("InsertAndReplaceContentControls", [
-          arrDocuments,
-        ]);
-      } else {
-        console.log("Please select CC");
-      }
-    }
-  );
-}
-
-function getAllComments() {
-  console.log("GetAllComments");
-  connector.executeMethod("GetAllComments", [], (callback_arg) => {
-    console.log(callback_arg);
-  });
-}
-
-function addHello() {
-  connector.callCommand(
-    function () {
-      var oDocument = Api.GetDocument();
-      var oParagraph = Api.CreateParagraph();
-      oParagraph.AddText("Hello");
-      oDocument.InsertContent([oParagraph]);
-      Api.AddComment(oParagraph, "text", "author");
-      return "text & comment added";
-    },
-    function (callback_arg) {
-      console.log("test:", callback_arg);
-    }
-  );
 }
 
 function addBlockLvlSdt() {
@@ -257,17 +213,81 @@ function addInlineLvlSdt() {
   );
 }
 
-function getAllContentControls() {
-  connector.executeMethod("GetAllContentControls", [], (callback_arg) => {
-    if (typeof callback_arg[0] != "undefined") {
-      // console.log(callback_arg[0].Tag);
-      for (var i = 0; i < callback_arg.length; i++) {
-        // console.log(i)
-        console.log(callback_arg[i].Tag);
+function insertAndRemoveCC() {
+
+  var file = 'shape.docx'
+
+  var oControlPrContent = {
+    Props: {
+      Id: 1,
+      Tag: "text block",
+      Lock: 3,
+    },
+    Url: `http://192.168.0.104:7080/files/template/${file}`,
+    Format: "docx",
+  };
+
+  const arrDocuments = [oControlPrContent];
+
+  connector.executeMethod(
+    "InsertAndReplaceContentControls",
+    [arrDocuments],
+    (returnValue) => {
+      console.log(returnValue)
+      // Remove content control
+      connector.executeMethod("RemoveContentControl", [
+        returnValue[0].InternalId,
+      ]);
+    }
+  );
+}
+
+function insertAndReplaceProps() {
+  window.connector.executeMethod(
+    "GetCurrentContentControl",
+    [],
+    function (InternalId) {
+      if (InternalId) {
+        var arrDocuments = [
+          {
+            Props: {
+              InternalId: InternalId,
+              Id: 100,
+              Tag: "Tag",
+              Lock: 1,
+              Alias: "alias",
+              PlaceHolderText: "custom_placeholder",
+              Appearance: 1,
+              Color: { R: 100, G: 100, B: 100 },
+            },
+            Script:
+              "var oParagraph = Api.CreateParagraph();oParagraph.AddText('Updated container');Api.GetDocument().InsertContent([oParagraph]);",
+          },
+        ];
+
+        window.connector.executeMethod("InsertAndReplaceContentControls", [
+          arrDocuments,
+        ]);
+      } else {
+        console.log("Please select CC");
       }
     }
+  );
+}
+
+function attachOnChangeContentControl() {
+  connector.attachEvent("onChangeContentControl", function () {
+    console.log("event: onChangeContentControl");
   });
 }
+
+function remove() {
+  connector.executeMethod("RemoveContentControl", []);
+}
+
+// CSE
+
+// CPE
 
 function createSlide() {
   connector.callCommand(
@@ -287,19 +307,4 @@ function createSlide() {
       console.log("callback command");
     }
   );
-}
-
-function onEncryption(event) {
-  console.log(event);
-  connector.executeMethod("OnEncryption", [
-    {
-      type: "generatePassword",
-      password: "123456",
-      docinfo: "{docinfo}",
-    },
-  ]);
-}
-
-function removeCC() {
-  connector.executeMethod("RemoveContentControl", []);
 }

@@ -4,8 +4,6 @@
   top: 0;
   width: 10%;
   height: 100%;
-  /* background: blue; */
-  color: #fff;
   overflow: auto;
 }
 .block-2 {
@@ -14,17 +12,19 @@
   top: 0;
   width: 90%;
   height: 100%;
-  /* background: green; */
-  /* color: #fff;
-  overflow: auto; */
 }
 
-.text {
-    color: black;
-    font-size: 150%;
+:is(h1, h2, h3, h4, h5, h6) {
+  color: black;
+  font-size: 100%;
+  text-wrap: wrap;
+  text-align: left;
 }
 
 button {
-  height: 50px;
+  height: 30px;
   width: 100px;
+  font-size: 70%;
+  text-wrap: wrap;
+  text-align: left;
 }
