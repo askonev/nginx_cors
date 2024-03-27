@@ -1,29 +1,38 @@
-var uniqueId =
-  Date.now().toString(36) + Math.random().toString(36).substring(2);
+var uniqueId = Date.now().toString(36) + 
+                          Math.random().toString(36).substring(2);
 
 var ip = "192.168.0.104";
 var callbackurl = ""; // 'https://a54124be-9d23-4b1d-b43d-de66863b94f5.mock.pstmn.io' // 'https://eowzrjdoaq8tuyh.m.pipedream.net';
 
-var file = "empty.docx";
-// var file = "empty.pptx";
-// var url = 'https://testing-documentserver-files.s3.amazonaws.com/public_documents/empty.docx'
-var url = `http://${ip}:7080/files/${file}`;
+// var _file = "empty.docx";
+var _file = "empty.xlsx"
+// var _file = "empty.pptx";
 
-// console.log(uniqueId)
-// console.log(`file url: ${url}`);
+var _filetype = _file.split('.').pop()
+
+// var url = 'https://testing-documentserver-files.s3.amazonaws.com/public_documents/empty.docx'
+var _url = `http://${ip}:7080/files/${_file}`;
+
+// var _documentType = "word"
+var _documentType =  "cell"
+// var _documentType = "slide"
+// var _docuemntType = "pdf"
 
 var _type = "desktop";
 // var _type = "mobile";
+
+/////////////////////////////////////////////////////////
 
 function createConnector() {
   window.connector = docEditor.createConnector();
 }
 
+/////////////////////////////////////////////////////////
+
 window.docEditor = new DocsAPI.DocEditor("placeholder", {
   type: _type,
   document: {
-    fileType: "docx",
-    // fileType: "pptx", 
+    fileType: _filetype,
     info: {
       owner: "John Smith",
       favorite: true,
@@ -41,9 +50,8 @@ window.docEditor = new DocsAPI.DocEditor("placeholder", {
       ],
     },
     key: uniqueId.toString(),
-    title: "empty.docx",
-    // title: "empty.pptx",
-    url: url,
+    title: _file,
+    url: _url,
     permissions: {
       edit: true,
       download: true,
@@ -51,8 +59,7 @@ window.docEditor = new DocsAPI.DocEditor("placeholder", {
       comment: true,
     },
   },
-  documentType: "word",
-  // documentType: "slide",
+  documentType: _documentType,
   editorConfig: {
     mode: "edit",
     customization: {
