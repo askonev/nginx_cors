@@ -108,6 +108,12 @@ function onEncryption(event) {
   ]);
 }
 
+function getSelectionType() {
+  connector.executeMethod("GetSelectionType", [], function (sType) {
+    console.log(sType);
+  });
+}
+
 // Content Controles
 
 function getAllContentControls() {
