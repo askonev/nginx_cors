@@ -1,25 +1,41 @@
-var uniqueId = Date.now().toString(36) + 
-                          Math.random().toString(36).substring(2);
 
-var ip = "192.168.0.104";
-var callbackurl = ""; // 'https://a54124be-9d23-4b1d-b43d-de66863b94f5.mock.pstmn.io' // 'https://eowzrjdoaq8tuyh.m.pipedream.net';
+window.host_ip = '192.168.4.138'
 
-// var _file = "empty.docx";
-var _file = "empty.xlsx"
-// var _file = "empty.pptx";
+var config = function(type) {
+  switch (type) {
+    case 'docx':
+      var _file = "empty.docx";
+      // 'https://testing-documentserver-files.s3.amazonaws.com/public_documents/empty.docx'
+      var _documentType = "word";
+      break;
+    case 'xlsx':
+      var _file = "empty.xlsx";
+      var _documentType = "cell";
+      break;
+    case 'pptx':
+      var _file = "empty.pptx";
+      var _documentType = "slide";
+      break;
+    case 'pdf':
+      var _documentType = "pdf";
+      break;
+  }
 
-var _filetype = _file.split('.').pop()
+  return {
+    ip: '192.168.4.138',
+    uuid:
+      Date.now().toString(36) +
+      Math.random().toString(36).substring(2).toString(),
+    source: _file,
+    extension: _file.split('.').pop(),
+    url: `http://${window.host_ip}:9090/files/${_file}`,
+    type: _documentType,
+    platform: 'desktop', // "mobile"
+    mode: 'edit',
+  };
+};
 
-// var url = 'https://testing-documentserver-files.s3.amazonaws.com/public_documents/empty.docx'
-var _url = `http://${ip}:7080/files/${_file}`;
-
-// var _documentType = "word"
-var _documentType =  "cell"
-// var _documentType = "slide"
-// var _documentType = "pdf"
-
-var _type = "desktop";
-// var _type = "mobile";
+config = config('docx');
 
 /////////////////////////////////////////////////////////
 
@@ -27,14 +43,14 @@ function createConnector() {
   window.connector = docEditor.createConnector();
 }
 
-window.documentType = _documentType
+window.docType = config.type;
 
 /////////////////////////////////////////////////////////
 
 window.docEditor = new DocsAPI.DocEditor("placeholder", {
-  type: _type,
+  type: config.platform,
   document: {
-    fileType: _filetype,
+    fileType: config.extension,
     info: {
       owner: "John Smith",
       favorite: true,
@@ -51,9 +67,9 @@ window.docEditor = new DocsAPI.DocEditor("placeholder", {
         },
       ],
     },
-    key: uniqueId.toString(),
-    title: _file,
-    url: _url,
+    key: config.uuid,
+    title: config.source,
+    url: config.url,
     permissions: {
       edit: true,
       download: true,
@@ -61,14 +77,14 @@ window.docEditor = new DocsAPI.DocEditor("placeholder", {
       comment: true,
     },
   },
-  documentType: _documentType,
+  documentType: config.type,
   editorConfig: {
-    mode: "edit",
+    mode: config.mode,
     customization: {
       zoom: 100,
       integrationMode: "embed",
     },
-    callbackUrl: callbackurl,
+    callbackUrl: '',
   },
   height: "100%",
   width: "100%",

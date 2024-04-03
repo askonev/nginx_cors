@@ -215,7 +215,7 @@ function insertAndRemoveCC() {
       Tag: "text block",
       Lock: 3,
     },
-    Url: `http://192.168.0.104:7080/files/template/${file}`,
+    Url: `http://192.168.4.138:7080/files/template/${file}`,
     Format: "docx",
   };
 
@@ -310,7 +310,7 @@ function createSlide() {
 // Universal
 
 function getAllComments() {
-  switch (window.documentType) {
+  switch (window.docType) {
     case "word":
       console.log("GetAllComments");
       connector.executeMethod("GetAllComments", [], (callback_arg) => {
