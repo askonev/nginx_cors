@@ -119,52 +119,31 @@ function getSelectionType() {
 function getAllContentControls() {
   connector.executeMethod("GetAllContentControls", [], (callback_arg) => {
     if (typeof callback_arg[0] != "undefined") {
-      // console.log(callback_arg[0].Tag);
       for (var i = 0; i < callback_arg.length; i++) {
-        // console.log(i)
-        console.log(callback_arg[i].Tag);
+        console.log(i);
       }
     }
   });
 }
 
-function getCurrentContentControl() {
-  window.connector.executeMethod("GetCurrentContentControlPr", [], (sdt) => {
-    console.log(sdt);
-    console.log(sdt.Tag);
+function getCurrentContentControlPr() {
+  connector.executeMethod("GetCurrentContentControlPr", [], (callback) => {
+    console.log(callback.InternalId);
 
-    // debugger
-
-    // window.Asc.scope = {
-    //   ccTag : sdt.Tag
-    // };
-
-    // console.log(sdt)
-
-    connector.callCommand(
-      function () {
-        console.log("call callCommand()");
-        // var oDocument = Api.GetDocument();
-        // console.log(oDocument)
-        // var aContentControls = oDocument.GetAllContentControls();
-        // console.log(aContentControls)
-        // // var aContentControls = Api.pluginMethod_GetAllContentControls();
-
-        // for (var oContentControl of aContentControls) {
-        //   if (oContentControl.GetTag() === Asc.scope.ccTag) {
-        //     var oRange = oContentControl.GetRange();
-        //     var text = oRange.GetText();
-        //     console.log(text)
-        //     return text;
-        //     }
-        //   }
+    var arrDocuments = [
+      {
+        Props: {
+          Id: 100,
+          InternalId: callback.InternalId,
+          Tag: "CC_Tag",
+          Lock: 3,
+          PlaceHolderText: "custom",
+        },
+        Script:
+          "var oParagraph = Api.CreateParagraph();oParagraph.AddText('Hello world!');Api.GetDocument().InsertContent([oParagraph]);",
       },
-      false,
-      true,
-      function (text) {
-        // console.log(text)
-      }
-    );
+    ];
+    connector.executeMethod("InsertAndReplaceContentControls", [arrDocuments]);
   });
 }
 
