@@ -14,7 +14,7 @@ services:
         target: /etc/nginx/conf.d/default.conf
         read_only: true
     ports:
-      - "7080:80"
+      - "9090:80"
     restart: on-failure
     environment:
       - NGINX_PORT=80
