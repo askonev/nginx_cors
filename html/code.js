@@ -128,27 +128,32 @@ function getAllContentControls() {
 
 function getCurrentContentControlPr() {
   connector.executeMethod("GetCurrentContentControlPr", [], (callback) => {
-    console.log(callback.InternalId);
+    console.log(callback);
 
-    var arrDocuments = [
-      {
-        Props: {
-          Id: 100,
-          InternalId: callback.InternalId,
-          Tag: "CC_Tag",
-          Lock: 3,
-          PlaceHolderText: "custom",
-        },
-        Script:
-          "var oParagraph = Api.CreateParagraph();oParagraph.AddText('Hello world!');Api.GetDocument().InsertContent([oParagraph]);",
-      },
-    ];
-    connector.executeMethod("InsertAndReplaceContentControls", [arrDocuments]);
+    // var arrDocuments = [
+    //   {
+    //     Props: {
+    //       Id: 100,
+    //       InternalId: callback.InternalId,
+    //       Tag: "CC_Tag",
+    //       Lock: 2,
+    //       PlaceHolderText: "custom",
+    //     },
+    //     Script:
+    //       "var oParagraph = Api.CreateParagraph();oParagraph.AddText('Hello world!');Api.GetDocument().InsertContent([oParagraph]);",
+    //   },
+    // ];
+    // connector.executeMethod("InsertAndReplaceContentControls", [arrDocuments]);
   });
 }
 
 function addBlockLvlSdt() {
   // console.log(uniqueId)
+
+  // 0 - only deleting
+  // 1 - disable deleting or editing
+  // 2 - only editing
+  // 3 - full access
 
   var config = {
     type: 1, //  1 (block), 2 (inline)
@@ -219,7 +224,7 @@ function insertAndRemoveCC() {
   );
 }
 
-function insertAndReplaceProps() {
+function getCurrentAndInsertAndReplaceProps() {
   window.connector.executeMethod(
     "GetCurrentContentControl",
     [],
