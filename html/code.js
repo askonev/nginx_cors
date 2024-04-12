@@ -136,7 +136,7 @@ function getCurrentContentControlPr() {
     //       Id: 100,
     //       InternalId: callback.InternalId,
     //       Tag: "CC_Tag",
-    //       Lock: 2,
+    //       Lock: 3,
     //       PlaceHolderText: "custom",
     //     },
     //     Script:
