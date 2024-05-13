@@ -1,5 +1,5 @@
 
-window.host_ip = '192.168.4.138'
+window.host_ip = '192.168.0.106'
 
 var config = function(type) {
   switch (type) {
@@ -18,11 +18,12 @@ var config = function(type) {
       break;
     case 'pdf':
       var _documentType = "pdf";
+      var _file = "sample.pdf"
       break;
   }
 
   return {
-    ip: '192.168.4.138',
+    ip: '192.168.0.106',
     uuid:
       Date.now().toString(36) +
       Math.random().toString(36).substring(2).toString(),

@@ -24,6 +24,13 @@ var onMetaChange = function (event) {
 
 // CDE
 
+
+function getVersion() {
+  connector.executeMethod ("GetVersion", [], function (version) {
+    console.log(version);
+  });
+}
+
 function addHello() {
   connector.callCommand(
     function () {
@@ -112,6 +119,28 @@ function getSelectionType() {
   connector.executeMethod("GetSelectionType", [], function (sType) {
     console.log(sType);
   });
+}
+
+function callCommand() {
+
+  var recalculate = true
+
+  connector.callCommand(function () {
+    var oDocument = Api.GetDocument();
+    var oParagraph = Api.CreateParagraph();
+    oParagraph.AddText('insert text');
+    oDocument.InsertContent([oParagraph], false, { "KeepTextOnly": true });
+  }, recalculate)
+}
+
+function pasteHTML() {
+  var html = `<div><p style="background-color:aliceblue;padding:25px;">test</p></div>`
+  // var html = "<p><b>Plugin methods for OLE objects</b></p><ul><li>AddOleObject</li><li>EditOleObject</li></ul>"
+  // var html = '<div><br/></div><div style=""><br>RADIOGRAPHIES</div><div><br/></div><div style=""><b><u>Indication</u></b><br>Bilan d\'un traumatisme.</div><div><br/></div><div style=""><b><u>Technique</u></b><br>Face, profil et 3/4</div><div><br/></div><div style=""><b><u>Résultat</u></b><br>Pas de lésion osseuse traumatique. Pas d’anomalie focalisée de la structure osseuse.<br>Bonne congruence articulaire.</div>'
+  // var html = `<div>RADIOGRAPHIES</div>`
+  // var html = string_html.replace("div", "test")
+  console.log(html)
+  connector.executeMethod("PasteHtml", [string_html]);
 }
 
 // Content Controles
@@ -205,7 +234,7 @@ function insertAndRemoveCC() {
       Tag: "text block",
       Lock: 3,
     },
-    Url: `http://192.168.4.138:7080/files/template/${file}`,
+    Url: `http://192.168.0.106:7080/files/template/${file}`,
     Format: "docx",
   };
 
@@ -297,7 +326,7 @@ function createSlide() {
   );
 }
 
-// Universal
+// Common
 
 function getAllComments() {
   switch (window.docType) {
@@ -329,4 +358,22 @@ function getAllComments() {
       console.log("GetAllComments");
       break;
   }
+}
+
+
+function getSelectedText() {
+
+  var numbering = {
+    "NewLine": true,
+    "NewLineParagraph": true,
+    "Numbering": true,
+    "Math": false,
+    "TableCellSeparator": ';',
+    "TableRowSeparator": '_',
+    "ParaSeparator": '\n',
+    "TabSymbol": String.fromCharCode(9)
+  }
+  connector.executeMethod("GetSelectedText", [numbering], function (data) {
+    console.log(data)
+  });
 }

@@ -5,7 +5,7 @@
   <title>DocsAPI</title>
   <link rel="icon" type="image/x-icon" href="/images/favicon.ico">
   <link rel="stylesheet" href="style.css">
-  <script type="text/javascript" src="http://192.168.4.138:3000/web-apps/apps/api/documents/api.js"></script>
+  <script type="text/javascript" src="http://192.168.0.106:3000/web-apps/apps/api/documents/api.js"></script>
   <script type="text/javascript" src="code.js"></script>
 </head>
 
@@ -14,6 +14,7 @@
   <div class="block-1">
     <div class="cde">
       <h3>CDE</h3>
+      <button onclick="javascript:getVersion()">getVersion</button>
       <button onclick="javascript:addHello();">addHello & Comment</button>
       <button onclick="javascript:getAllComments();">getAllComments</button>
       <button onclick="javascript:GetRewiewReport();">GetRewiewReport</button>
@@ -22,6 +23,8 @@
       <button onclick="javascript:TrackRevisionOFF();" style="height:50px; width:100px;">TrackRevisionOFF</button> -->
       <button onclick="javascript:onEncryption()">OnEncryption</button>
       <button onclick="javascript:getSelectionType()">getSelectionType</button>
+      <button onclick="javascript:callCommand()">callCommand</button>
+      <button onclick="javascript:pasteHTML()">pasteHTML</button>
       <div class="content_controls">
         <h4>Content Controls</h4>
         <button onclick="javascript:getAllContentControls();">getAllCC</button>
@@ -42,6 +45,10 @@
     <div class="cpe">
       <h3 class="text">CPE</h3>
       <button id="createSlide" onclick="javascript:createSlide()">Create Slide</button>
+    </div>
+    <div class="common">
+      <h3 class="text">common</h3>
+      <button onclick="javascript:getSelectedText()">getSelectedText</button>
     </div>
   </div>
   <div class="block-2">
