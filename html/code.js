@@ -140,7 +140,7 @@ function pasteHTML() {
   // var html = `<div>RADIOGRAPHIES</div>`
   // var html = string_html.replace("div", "test")
   console.log(html)
-  connector.executeMethod("PasteHtml", [string_html]);
+  connector.executeMethod("PasteHtml", [html]);
 }
 
 // Content Controles
@@ -234,7 +234,7 @@ function insertAndRemoveCC() {
       Tag: "text block",
       Lock: 3,
     },
-    Url: `http://192.168.0.106:7080/files/template/${file}`,
+    Url: `http://192.168.4.138:7080/files/template/${file}`,
     Format: "docx",
   };
 
