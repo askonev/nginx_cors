@@ -133,12 +133,13 @@ function callCommand() {
   }, recalculate)
 }
 
+// var html = `<div><p style="background-color:aliceblue;padding:25px;">test</p></div>`
+// var html = "<p><b>Plugin methods for OLE objects</b></p><ul><li>AddOleObject</li><li>EditOleObject</li></ul>"
+// var html = '<div><br/></div><div style=""><br>RADIOGRAPHIES</div><div><br/></div><div style=""><b><u>Indication</u></b><br>Bilan d\'un traumatisme.</div><div><br/></div><div style=""><b><u>Technique</u></b><br>Face, profil et 3/4</div><div><br/></div><div style=""><b><u>Résultat</u></b><br>Pas de lésion osseuse traumatique. Pas d’anomalie focalisée de la structure osseuse.<br>Bonne congruence articulaire.</div>'
+// var html = `<div>RADIOGRAPHIES</div>`
+// var html = string_html.replace("div", "test")
 function pasteHTML() {
-  var html = `<div><p style="background-color:aliceblue;padding:25px;">test</p></div>`
-  // var html = "<p><b>Plugin methods for OLE objects</b></p><ul><li>AddOleObject</li><li>EditOleObject</li></ul>"
-  // var html = '<div><br/></div><div style=""><br>RADIOGRAPHIES</div><div><br/></div><div style=""><b><u>Indication</u></b><br>Bilan d\'un traumatisme.</div><div><br/></div><div style=""><b><u>Technique</u></b><br>Face, profil et 3/4</div><div><br/></div><div style=""><b><u>Résultat</u></b><br>Pas de lésion osseuse traumatique. Pas d’anomalie focalisée de la structure osseuse.<br>Bonne congruence articulaire.</div>'
-  // var html = `<div>RADIOGRAPHIES</div>`
-  // var html = string_html.replace("div", "test")
+  var html = "<html><body><table style = 'border: 2px solid black;border-collapse: collapse;width: 100%;'> <thead> <tr style = 'border: 1px solid black; padding: 8px;text-align: left;font-weight: bold;'> <th>合同编号</th> <th>合同名称</th> <th>甲方</th> <th>乙方</th> <th>签订日期</th> </tr> </thead> <tbody> <tr> <td>CT2023001</td> <td>软件开发合同</td> <td>A公司</td> <td>B公司</td> <td>2023-01-01</td> </tr> <tr> <td>CT2023002</td> <td>货物采购合同</td> <td>C公司</td> <td>D公司</td> <td>2023-02-15</td> </tr> </tbody> </table></body></html>"
   console.log(html)
   connector.executeMethod("PasteHtml", [html]);
 }
@@ -234,7 +235,7 @@ function insertAndRemoveCC() {
       Tag: "text block",
       Lock: 3,
     },
-    Url: `http://192.168.4.138:7080/files/template/${file}`,
+    Url: `http://192.168.0.103:7080/files/template/${file}`,
     Format: "docx",
   };
 
