@@ -1,0 +1,47 @@
+builder.CreateFile("pptx");
+
+var postcards = Argument["Postcards"];
+
+// db --argument=$(cat ./postcard_config.json) postcard.docbuilder
+
+var oPresentation = Api.GetPresentation();
+var oImage = Api.CreateImage("https://img.freepik.com/premium-vector/greenery-wedding-invitation-design-with-floral-watercolor_118960-4640.jpg?w=2000", 350 * 36000, 195* 36000);
+
+function createSlide(oPresentation, oImage, title, text, footer) {
+    var oSlide = Api.CreateSlide();
+    oSlide.RemoveAllObjects();
+    oSlide.AddObject(oImage);
+    var oFill = Api.CreateNoFill();
+    var oStroke = Api.CreateStroke(0, oFill);
+    var oShapeTitle = Api.CreateShape("rect", 150 * 36000, 20 * 36000, oFill, oStroke);
+    var oShapeText = Api.CreateShape("rect", 150 * 36000, 60 * 36000, oFill, oStroke);
+    var oShapeFooter = Api.CreateShape("rect", 50 * 36000, 30 * 36000, oFill, oStroke);
+    oShapeTitle.SetPosition(100 * 36000, 55 * 36000);
+    oShapeText.SetPosition(100 * 36000, 70 * 36000);
+    oShapeFooter.SetPosition(200 * 36000, 125 * 36000);
+    oRunText(oShapeTitle, oSlide, 68, true, title);
+    oRunText(oShapeText, oSlide, 62, false, text);
+    oRunText(oShapeFooter, oSlide, 46, false, footer);
+    oPresentation.AddSlide(oSlide);
+}
+
+function oRunText(oShape, oSlide, fontSize, bold, text) {
+    var oDocContent = oShape.GetDocContent();
+    var oParagraph = oDocContent.GetElement(0);
+    var oRun = Api.CreateRun();
+    var oTextPr = oRun.GetTextPr();
+    oTextPr.SetFontSize(fontSize);
+    oTextPr.SetCaps(true);
+    oTextPr.SetBold(bold);
+    oFill = Api.CreateSolidFill(Api.CreateRGBColor(51, 51, 51));
+    oTextPr.SetFill(oFill);
+    oTextPr.SetFontFamily("Trattatello");
+    oParagraph.SetJc("left");o
+postcards.forEach(postcard => {
+    createSlide(oPresentation, oImage, postcard.title, postcard.text, postcard.footer)
+});
+
+oPresentation.RemoveSlides(0, 1);   
+
+builder.SaveFile("pptx", "Postcards.pptx");
+builder.CloseFile();

@@ -1,0 +1,5 @@
+builder.OpenFile("/home/askonew/shared/files/xls/10t.xls");
+console.log("convert")
+
+builder.SaveFile("gif", "result.gif");
+builder.CloseFile();
