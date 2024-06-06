@@ -143,7 +143,6 @@ function pasteHTML() {
   console.log(html)
   connector.executeMethod("PasteHtml", [html]);
 }
-
 // Content Controles
 
 function getAllContentControls() {
