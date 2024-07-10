@@ -234,7 +234,7 @@ function insertAndRemoveCC() {
       Tag: "text block",
       Lock: 3,
     },
-    Url: `http://192.168.4.138:9090/files/template/${file}`,
+    Url: `http://192.168.4.138:9090/files/bugs/2.docx`,
     Format: "docx",
   };
 
@@ -292,7 +292,7 @@ function attachOnChangeContentControl() {
   });
 }
 
-function remove() {
+function remove_cc() {
   connector.executeMethod("RemoveContentControl", []);
 }
 
