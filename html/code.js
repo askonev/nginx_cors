@@ -226,7 +226,7 @@ function addInlineLvlSdt() {
 }
 
 function insertAndRemoveCC() {
-  var file = "shape.docx";
+  var file = "Lorem_Ipsum.docx";
 
   var oControlPrContent = {
     Props: {
@@ -234,7 +234,7 @@ function insertAndRemoveCC() {
       Tag: "text block",
       Lock: 3,
     },
-    Url: `http://192.168.0.103:7080/files/template/${file}`,
+    Url: `http://192.168.4.138:9090/files/template/${file}`,
     Format: "docx",
   };
 
@@ -246,9 +246,9 @@ function insertAndRemoveCC() {
     (returnValue) => {
       console.log(returnValue);
       // Remove content control
-      connector.executeMethod("RemoveContentControl", [
-        returnValue[0].InternalId,
-      ]);
+      // connector.executeMethod("RemoveContentControl",
+      //                         [returnValue[0].InternalId]
+      //                       );
     }
   );
 }
