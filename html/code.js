@@ -269,7 +269,7 @@ function insertAndRemoveCC() {
   );
 }
 
-function getCurrentAndInsertAndReplaceProps() {
+function insertAndReplaceProps() {
   window.connector.executeMethod(
     "GetCurrentContentControl",
     [],
@@ -285,13 +285,13 @@ function getCurrentAndInsertAndReplaceProps() {
               Alias: "alias",
               PlaceHolderText: "custom_placeholder",
               Appearance: 1,
-              Color: { R: 100, G: 100, B: 100 },
+              Color: { R: 255, G: 129, B: 44 },
             },
-            Script:
-              "var oParagraph = Api.CreateParagraph();oParagraph.AddText('Updated container');Api.GetDocument().InsertContent([oParagraph]);",
+            Script: "var oParagraph = Api.CreateParagraph();\n" + 
+                    "oParagraph.AddText('Updated container');\n" + 
+                    "Api.GetDocument().InsertContent([oParagraph], false);\n",
           },
         ];
-
         window.connector.executeMethod("InsertAndReplaceContentControls", [
           arrDocuments,
         ]);
