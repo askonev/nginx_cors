@@ -24,7 +24,6 @@ var onMetaChange = function (event) {
 
 // CDE
 
-
 function getVersion() {
   connector.executeMethod ("GetVersion", [], function (version) {
     console.log(version);
@@ -145,53 +144,6 @@ function pasteHTML() {
 }
 // Content Controles
 
-function getAllContentControls() {
-  connector.executeMethod("GetAllContentControls", [], (callback_arg) => {
-    if (typeof callback_arg[0] != "undefined") {
-      for (var i = 0; i < callback_arg.length; i++) {
-        console.log(i);
-      }
-    }
-  });
-}
-
-function getCurrentContentControlPr() {
-  connector.executeMethod("GetCurrentContentControlPr", [], (callback) => {
-    console.log(callback);
-
-    // var arrDocuments = [
-    //   {
-    //     Props: {
-    //       Id: 100,
-    //       InternalId: callback.InternalId,
-    //       Tag: "CC_Tag",
-    //       Lock: 3,
-    //       PlaceHolderText: "custom",
-    //     },
-    //     Script:
-    //       "var oParagraph = Api.CreateParagraph();oParagraph.AddText('Hello world!');Api.GetDocument().InsertContent([oParagraph]);",
-    //   },
-    // ];
-    // connector.executeMethod("InsertAndReplaceContentControls", [arrDocuments]);
-  });
-}
-
-function setPlaseHolder() {
-  connector.executeMethod("GetCurrentContentControlPr", [], (callback) => {
-    console.log(callback);
-
-    var arrDocuments = [
-      {
-        Props: {
-          InternalId: callback.InternalId,
-          PlaceHolderText: "CUSTOM",
-        },
-      },
-    ];
-    connector.executeMethod("InsertAndReplaceContentControls", [arrDocuments]);
-  });
-}
-
 function addBlockLvlSdt() {
   // console.log(uniqueId)
 
@@ -241,8 +193,58 @@ function addInlineLvlSdt() {
   );
 }
 
+function getAllContentControls() {
+  connector.executeMethod("GetAllContentControls", [], (callback_arg) => {
+    if (typeof callback_arg[0] != "undefined") {
+      for (var i = 0; i < callback_arg.length; i++) {
+        console.log(i);
+      }
+    }
+  });
+}
+
+function getCurrentContentControlPr() {
+  connector.executeMethod("GetCurrentContentControlPr", [], (callback) => {
+    console.log(callback);
+
+    // var arrDocuments = [
+    //   {
+    //     Props: {
+    //       Id: 100,
+    //       InternalId: callback.InternalId,
+    //       Tag: "CC_Tag",
+    //       Lock: 3,
+    //       PlaceHolderText: "custom",
+    //     },
+    //     Script:
+    //       "var oParagraph = Api.CreateParagraph();oParagraph.AddText('Hello world!');Api.GetDocument().InsertContent([oParagraph]);",
+    //   },
+    // ];
+    // connector.executeMethod("InsertAndReplaceContentControls", [arrDocuments]);
+  });
+}
+
+function setPlaseHolder() {
+  connector.executeMethod("GetCurrentContentControlPr", [], (callback) => {
+    console.log(callback);
+
+    var arrDocuments = [
+      {
+        Props: {
+          InternalId: callback.InternalId,
+          PlaceHolderText: "CUSTOM",
+        },
+      },
+    ];
+    connector.executeMethod("InsertAndReplaceContentControls", [arrDocuments]);
+  });
+}
+
 function insertAndRemoveCC() {
-  var file = "Lorem_Ipsum.docx";
+  // var file = "Lorem_Ipsum.docx";
+  var dir = 'bugs'
+  // var file = '2.docx'
+  var file = 'without_shapes.docx'
 
   var oControlPrContent = {
     Props: {
@@ -250,7 +252,7 @@ function insertAndRemoveCC() {
       Tag: "text block",
       Lock: 3,
     },
-    Url: `http://192.168.4.138:9090/files/bugs/2.docx`,
+    Url: `http://192.168.4.138:9090/files/${dir}/${file}`,
     Format: "docx",
   };
 
@@ -260,11 +262,9 @@ function insertAndRemoveCC() {
     "InsertAndReplaceContentControls",
     [arrDocuments],
     (returnValue) => {
-      console.log(returnValue);
+      // console.log(returnValue);
       // Remove content control
-      // connector.executeMethod("RemoveContentControl",
-      //                         [returnValue[0].InternalId]
-      //                       );
+      // connector.executeMethod("RemoveContentControl", [returnValue[0].InternalId]);
     }
   );
 }
