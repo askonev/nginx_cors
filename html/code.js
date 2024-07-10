@@ -176,6 +176,22 @@ function getCurrentContentControlPr() {
   });
 }
 
+function setPlaseHolder() {
+  connector.executeMethod("GetCurrentContentControlPr", [], (callback) => {
+    console.log(callback);
+
+    var arrDocuments = [
+      {
+        Props: {
+          InternalId: callback.InternalId,
+          PlaceHolderText: "CUSTOM",
+        },
+      },
+    ];
+    connector.executeMethod("InsertAndReplaceContentControls", [arrDocuments]);
+  });
+}
+
 function addBlockLvlSdt() {
   // console.log(uniqueId)
 
