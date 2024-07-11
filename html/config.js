@@ -1,5 +1,5 @@
 
-window.host_ip = '192.168.4.138'
+window.host_ip = '192.168.0.103'
 
 var config = function(type) {
   switch (type) {
@@ -23,7 +23,7 @@ var config = function(type) {
   }
 
   return {
-    ip: '192.168.4.138',
+    ip: '192.168.0.103',
     uuid:
       Date.now().toString(36) +
       Math.random().toString(36).substring(2).toString(),
