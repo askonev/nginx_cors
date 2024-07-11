@@ -241,10 +241,8 @@ function setPlaseHolder() {
 }
 
 function insertAndRemoveCC() {
-  // var file = "Lorem_Ipsum.docx";
-  var dir = 'bugs'
-  // var file = '2.docx'
-  var file = 'without_shapes.docx'
+  var file = 'Lorem_Ipsum.docx';
+  var dir = 'template';
 
   var oControlPrContent = {
     Props: {
