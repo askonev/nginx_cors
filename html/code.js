@@ -299,6 +299,24 @@ function remove_cc() {
   connector.executeMethod("RemoveContentControl", []);
 }
 
+function startAction() {
+  function setPasswordByFile(type, value) {
+    console.log(type, value)
+  }
+
+  // var flag = 'Information'
+  var flag = 'Block'
+
+  connector.executeMethod("StartAction", [`${flag}`, "Message 1"], function() {
+    setPasswordByFile("sha256", "123456");
+
+    setTimeout(function () {
+      connector.executeMethod ("EndAction", [`${flag}`, "Message 1"]);
+      console.log("End Action")
+    }, 2000);
+  });
+}
+
 // Events
 
 function onEncryption(event) {
