@@ -145,7 +145,7 @@ function addBlockLvlSdt() {
     type: 1, //  1 (block), 2 (inline)
     property: {
       Appearance: 1,
-      Id: 123,
+      Id: 1001,
       Lock: 3,
       Tag: "{TAG}",
       PlaceHolderText: "BlockLvlSdt",
@@ -156,7 +156,7 @@ function addBlockLvlSdt() {
     "AddContentControl",
     [config.type, config.property],
     (callback_arg) => {
-      // console.log(callback_arg);
+      console.log(callback_arg);
     }
   );
 }
@@ -166,7 +166,7 @@ function addInlineLvlSdt() {
     type: 2, // 1 (block), 2 (inline)
     property: {
       Appearance: 1,
-      Id: 321,
+      Id: 1002,
       Lock: 3,
       Tag: "{TAG}",
       PlaceHolderText: "InlineLvlSdt",
@@ -177,7 +177,7 @@ function addInlineLvlSdt() {
     "AddContentControl",
     [config.type, config.property],
     (callback_arg) => {
-      // console.log(callback_arg);
+      console.log(callback_arg);
     }
   );
 }
