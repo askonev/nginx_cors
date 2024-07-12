@@ -18,14 +18,14 @@
 
 // direct way
 var onMetaChange = function (event) {
-  console.log(event);
+  console.log('onMetaChange log:' + event);
   console.log(event.data.title);
 };
 
 // CDE
 
 function getVersion() {
-  connector.executeMethod ("GetVersion", [], function (version) {
+  connector.executeMethod("GetVersion", [], function (version) {
     console.log(version);
   });
 }
@@ -101,17 +101,6 @@ function pullMetaChange() {
     .catch((error) => {
       console.error("Error:", error);
     });
-}
-
-function onEncryption(event) {
-  console.log(event);
-  connector.executeMethod("OnEncryption", [
-    {
-      type: "generatePassword",
-      password: "123456",
-      docinfo: "{docinfo}",
-    },
-  ]);
 }
 
 function getSelectionType() {
@@ -285,9 +274,9 @@ function insertAndReplaceProps() {
               Appearance: 1,
               Color: { R: 255, G: 129, B: 44 },
             },
-            Script: "var oParagraph = Api.CreateParagraph();\n" + 
-                    "oParagraph.AddText('Updated container');\n" + 
-                    "Api.GetDocument().InsertContent([oParagraph], false);\n",
+            Script: "var oParagraph = Api.CreateParagraph();\n" +
+              "oParagraph.AddText('Updated container');\n" +
+              "Api.GetDocument().InsertContent([oParagraph], false);\n",
           },
         ];
         window.connector.executeMethod("InsertAndReplaceContentControls", [
@@ -308,6 +297,47 @@ function attachOnChangeContentControl() {
 
 function remove_cc() {
   connector.executeMethod("RemoveContentControl", []);
+}
+
+// Events
+
+function onEncryption(event) {
+  console.log(event);
+  connector.executeMethod("OnEncryption", [
+    {
+      type: "generatePassword",
+      password: "123456",
+      docinfo: "{docinfo}",
+    },
+  ]);
+}
+
+function onBlureCC() {
+  connector.attachEvent('onBlurContentControl', function (oPr) {
+    if (oPr) {
+      console.log(oPr)
+    }
+    console.log('event: onBlurContentControl')
+  })
+}
+
+function onFocusCC() {
+  connector.attachEvent('onFocusContentControl', function (oPr) {
+    if (oPr) {
+      console.log(oPr)
+    }
+    console.log('event: onFocusContentControl')
+  })
+}
+
+function onChangeContentControl() {
+  connector.attachEvent('onChangeContentControl', function () {
+    console.log("event: onChangeContentControl");
+  });
+}
+
+function dettach_onChangeContentControl() {
+  connector.detachEvent("onChangeContentControl");
 }
 
 // CSE
