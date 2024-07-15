@@ -366,6 +366,18 @@ function addComment() {
   });
 }
 
+function setAscScope() {
+  Asc.scope.data = "Hello world!";
+  connector.callCommand(function () {
+    var oWorksheet = Api.GetActiveSheet();
+    oWorksheet.GetRange("B1").SetValue(Asc.scope.data);
+    var data = oWorksheet.GetRange("B1").GetValue();
+    return data
+  },
+    (data) => { console.log(data) }),
+    isNoCalc = true
+}
+
 // CPE
 
 function createSlide() {
