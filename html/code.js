@@ -307,11 +307,11 @@ function startAction() {
   // var flag = 'Information'
   var flag = 'Block'
 
-  connector.executeMethod("StartAction", [`${flag}`, "Message 1"], function() {
+  connector.executeMethod("StartAction", [`${flag}`, "Message 1"], function () {
     setPasswordByFile("sha256", "123456");
 
     setTimeout(function () {
-      connector.executeMethod ("EndAction", [`${flag}`, "Message 1"]);
+      connector.executeMethod("EndAction", [`${flag}`, "Message 1"]);
       console.log("End Action")
     }, 2000);
   });
@@ -398,24 +398,36 @@ function getAllComments() {
         console.log(callback_arg);
       });
       break;
+
     case "cell":
       console.log("GetAllComments");
       connector.callCommand(
         function () {
-          // var oWorksheet = Api.GetActiveSheet();
-          // oWorksheet.GetRange('A1').SetValue(Asc.scope.text)
-          var oComments = Api.GetComments();
+          // var oComments = Api.GetComments();
+          var oComments = Api.GetAllComments();
           var obj = {};
-          obj["text"] = oComments[0].GetText();
-          obj["AuthorName"] = oComments[0].GetAuthorName();
+          if (oComments.length > 0) {
+            for (var i = 0; i < oComments.length; i++) {
+              obj[`${i}`] = {
+                "Text": `${oComments[i].GetText()}`,
+                "Id": `${oComments[i].GetId()}`,
+                "AuthorName": `${oComments[i].GetAuthorName()}`,
+                "UserId": `${oComments[i].GetUserId()}`,
+              }
+            }
+          } else {
+            obj["text"] = 'no comments'
+          }
           return obj;
         },
         function (result) {
           console.log(result);
         },
-        true
+        null,
+        isNoCalc = true
       );
       break;
+
     case "slide":
       console.log("GetAllComments");
       break;

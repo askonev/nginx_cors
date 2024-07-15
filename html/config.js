@@ -36,7 +36,7 @@ var config = function(type) {
   };
 };
 
-config = config('docx');
+config = config('xlsx');
 
 /////////////////////////////////////////////////////////
 
