@@ -298,6 +298,16 @@ function attachOnChangeContentControl() {
 }
 
 function remove_cc() {
+
+  // connector.executeMethod("GetAllContentControls", null, (ccs) => {
+  //   console.log(ccs)
+
+  //   cc = ccs[0]
+
+  //   connector.executeMethod('RemoveContentControl', [cc.InternalId])
+    
+  // });
+
   connector.executeMethod("RemoveContentControl", []);
 }
 
