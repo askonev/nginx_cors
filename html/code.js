@@ -305,7 +305,7 @@ function remove_cc() {
   //   cc = ccs[0]
 
   //   connector.executeMethod('RemoveContentControl', [cc.InternalId])
-    
+
   // });
 
   connector.executeMethod("RemoveContentControl", []);
@@ -327,6 +327,26 @@ function startAction() {
       console.log("End Action")
     }, 2000);
   });
+}
+
+function blockUnblockAllCC() {
+  connector.callCommand(
+    function () {
+      let oDocument = Api.GetDocument();
+      let ctls = oDocument.GetAllContentControls();
+      for (let i = 0; i < ctls.length; i++) {
+        let tt = ctls[i].GetLock();
+        if (tt == 'contentLocked' || tt == 'sdtContentLocked' || tt == 'sdtLocked') {
+          ctls[i].SetLock("");
+        } else {
+          ctls[i].SetLock("contentLocked");
+        }
+        console.log(ctls[i].GetLock());
+      }
+    },
+    null,
+    false
+  );
 }
 
 // Events
