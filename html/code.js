@@ -149,7 +149,7 @@ function addBlockLvlSdt() {
       Appearance: 1,
       Id: 1001,
       Lock: 3,
-      Tag: "{TAG}",
+      Tag: "BSDT",
       PlaceHolderText: "BlockLvlSdt",
     },
   };
@@ -170,7 +170,7 @@ function addInlineLvlSdt() {
       Appearance: 1,
       Id: 1002,
       Lock: 3,
-      Tag: "{TAG}",
+      Tag: "ISDT",
       PlaceHolderText: "InlineLvlSdt",
     },
   };
@@ -188,7 +188,7 @@ function getAllContentControls() {
   connector.executeMethod("GetAllContentControls", [], (callback_arg) => {
     if (typeof callback_arg[0] != "undefined") {
       for (var i = 0; i < callback_arg.length; i++) {
-        console.log(i);
+        console.log(i, callback_arg[i])
       }
     }
   });
@@ -259,7 +259,7 @@ function insertAndRemoveCC() {
 }
 
 function insertAndReplaceProps() {
-  window.connector.executeMethod(
+  connector.executeMethod(
     "GetCurrentContentControl",
     [],
     function (InternalId) {
@@ -281,7 +281,7 @@ function insertAndReplaceProps() {
               "Api.GetDocument().InsertContent([oParagraph], false);\n",
           },
         ];
-        window.connector.executeMethod("InsertAndReplaceContentControls", [
+        connector.executeMethod("InsertAndReplaceContentControls", [
           arrDocuments,
         ]);
       } else {
@@ -335,11 +335,13 @@ function blockUnblockAllCC() {
       let oDocument = Api.GetDocument();
       let ctls = oDocument.GetAllContentControls();
       for (let i = 0; i < ctls.length; i++) {
-        let tt = ctls[i].GetLock();
-        if (tt == 'contentLocked' || tt == 'sdtContentLocked' || tt == 'sdtLocked') {
+        let lt = ctls[i].GetLock();
+        console.log(i, lt)
+        if (lt == 'contentLocked' || lt == 'sdtContentLocked' || lt == 'sdtLocked') {
           ctls[i].SetLock("");
         } else {
-          ctls[i].SetLock("contentLocked");
+          // "contentLocked" | "sdtContentLocked" | "sdtLocked"
+          ctls[i].SetLock("sdtContentLocked");
         }
         console.log(ctls[i].GetLock());
       }
