@@ -1,7 +1,7 @@
 
 window.host_ip = '192.168.4.138'
 
-var config = function(type) {
+var config = function (type) {
   switch (type) {
     case 'docx':
       var _file = "empty.docx";
@@ -25,8 +25,9 @@ var config = function(type) {
   return {
     ip: '192.168.4.138',
     uuid:
-      Date.now().toString(36) +
-      Math.random().toString(36).substring(2).toString(),
+    Date.now().toString(36) +
+    Math.random().toString(36).substring(2).toString(),
+    // uuid: 'BCFA2CED',
     source: _file,
     extension: _file.split('.').pop(),
     url: `http://${window.host_ip}:9090/files/${_file}`,
@@ -40,8 +41,31 @@ config = config('docx');
 
 /////////////////////////////////////////////////////////
 
+// EVENTS
+
+var onAppReady = function () {
+  console.log(" _              _   _  _ ___  _  _     _                             ");
+  console.log("/ \\ |\\ | | \\_/ / \\ |_ |_  |  /  |_    | \\  _   _     ._ _   _  ._ _|_");
+  console.log("\\_/ | \\| |_ |  \\_/ |  |  _|_ \\_ |_    |_/ (_) (_ |_| | | | (/_ | | |_");
+  console.log("|_  _| o _|_  _  ._    o  _    ._ _   _.  _|    |                    ");
+  console.log("|_ (_| |  |_ (_) |     | _>    | (/_ (_| (_| \\/ o                    ");
+  console.log("                                             /                       ");
+};
+
 function createConnector() {
   window.connector = docEditor.createConnector();
+}
+
+// direct way
+var onMetaChange = function (event) {
+  console.log('onMetaChange log:' + event);
+  console.log(event.data.title);
+};
+
+
+function onOutdatedVersion() {
+  console.log('Event: onOutdatedVersion')
+  // location.reload(true);
 }
 
 window.docType = config.type;
@@ -80,6 +104,12 @@ window.docEditor = new DocsAPI.DocEditor("placeholder", {
   },
   documentType: config.type,
   editorConfig: {
+    user: {
+      group: "Group1,Group2",
+      id: "78e1e841",
+      // image: "https://example.com/url-to-user-avatar.png",
+      name: "Smith Johan"
+    },
     mode: config.mode,
     customization: {
       zoom: 100,
@@ -90,7 +120,9 @@ window.docEditor = new DocsAPI.DocEditor("placeholder", {
   height: "100%",
   width: "100%",
   events: {
-    onDocumentReady: createConnector,
-    onMetaChange: onMetaChange,
+    "onAppReady": onAppReady,
+    "onDocumentReady": createConnector,
+    "onMetaChange": onMetaChange,
+    "onOutdatedVersion": onOutdatedVersion
   },
 });

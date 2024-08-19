@@ -14,13 +14,6 @@
 //     })
 // }
 
-// EVENTS
-
-// direct way
-var onMetaChange = function (event) {
-  console.log('onMetaChange log:' + event);
-  console.log(event.data.title);
-};
 
 // CDE
 
