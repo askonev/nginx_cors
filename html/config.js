@@ -44,12 +44,13 @@ config = config('docx');
 // EVENTS
 
 var onAppReady = function () {
-  console.log(" _              _   _  _ ___  _  _     _                             ");
-  console.log("/ \\ |\\ | | \\_/ / \\ |_ |_  |  /  |_    | \\  _   _     ._ _   _  ._ _|_");
-  console.log("\\_/ | \\| |_ |  \\_/ |  |  _|_ \\_ |_    |_/ (_) (_ |_| | | | (/_ | | |_");
-  console.log("|_  _| o _|_  _  ._    o  _    ._ _   _.  _|    |                    ");
-  console.log("|_ (_| |  |_ (_) |     | _>    | (/_ (_| (_| \\/ o                    ");
-  console.log("                                             /                       ");
+  massage =  " _              _   _  _ ___  _  _     _                             \n"
+  massage += "/ \\ |\\ | | \\_/ / \\ |_ |_  |  /  |_    | \\  _   _     ._ _   _  ._ _|_\n"
+  massage += "\\_/ | \\| |_ |  \\_/ |  |  _|_ \\_ |_    |_/ (_) (_ |_| | | | (/_ | | |_\n"
+  massage += "|_  _| o _|_  _  ._    o  _    ._ _   _.  _|    |                    \n"
+  massage += "|_ (_| |  |_ (_) |     | _>    | (/_ (_| (_| \\/ o                   \n"
+  massage += "                                             /                       \n"
+  console.log(massage);
 };
 
 function createConnector() {
