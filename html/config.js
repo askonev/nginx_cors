@@ -113,7 +113,7 @@ window.docEditor = new DocsAPI.DocEditor("placeholder", {
     },
     mode: config.mode,
     customization: {
-      zoom: 100,
+      zoom: 120,
       integrationMode: "embed",
     },
     callbackUrl: '',
