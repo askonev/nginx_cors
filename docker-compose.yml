@@ -4,11 +4,11 @@ services:
     volumes:
     # data shared
       - type: bind
-        source: ${PWD}/html
+        source: ./html
         target: /usr/share/nginx/html
     # nginx CORS
       - type: bind
-        source: ${PWD}/nginx_config/default.conf
+        source: ./nginx_config/default.conf
         target: /etc/nginx/conf.d/default.conf
         read_only: true
     ports:
