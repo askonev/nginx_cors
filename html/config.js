@@ -105,6 +105,7 @@ window.docEditor = new DocsAPI.DocEditor("placeholder", {
   },
   documentType: config.type,
   editorConfig: {
+    // callbackUrl: 'http://192.168.1.220:9090',
     user: {
       group: "Group1,Group2",
       id: "78e1e841",
@@ -115,8 +116,7 @@ window.docEditor = new DocsAPI.DocEditor("placeholder", {
     customization: {
       zoom: 120,
       integrationMode: "embed",
-    },
-    callbackUrl: '',
+    }
   },
   height: "100%",
   width: "100%",
