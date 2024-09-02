@@ -1,5 +1,5 @@
 
-window.host_ip = '192.168.1.220'
+window.host_ip = '192.168.4.138'
 
 var config = function (type) {
   switch (type) {
@@ -23,7 +23,7 @@ var config = function (type) {
   }
 
   return {
-    ip: '192.168.1.220',
+    ip: '192.168.4.138',
     uuid:
     Date.now().toString(36) +
     Math.random().toString(36).substring(2).toString(),
@@ -34,6 +34,7 @@ var config = function (type) {
     type: _documentType,
     platform: 'desktop', // "mobile"
     mode: 'edit',
+    lang: 'en'
   };
 };
 
@@ -55,6 +56,10 @@ var onAppReady = function () {
 
 function createConnector() {
   window.connector = docEditor.createConnector();
+
+  if (typeof window.connector == 'underfined') {
+    alert('connector is not defined');
+  }
 }
 
 // direct way
@@ -105,7 +110,7 @@ window.docEditor = new DocsAPI.DocEditor("placeholder", {
   },
   documentType: config.type,
   editorConfig: {
-    // callbackUrl: 'http://192.168.1.220:9090',
+    // callbackUrl: 'http://192.168.4.138:9090',
     user: {
       group: "Group1,Group2",
       id: "78e1e841",
@@ -113,10 +118,11 @@ window.docEditor = new DocsAPI.DocEditor("placeholder", {
       name: "Smith Johan"
     },
     mode: config.mode,
+    lang: config.lang,
     customization: {
       zoom: 120,
       integrationMode: "embed",
-    }
+    },
   },
   height: "100%",
   width: "100%",
