@@ -4,7 +4,8 @@ window.host_ip = '192.168.4.138'
 var config = function (type) {
   switch (type) {
     case 'docx':
-      var _file = "empty.docx";
+      // var _file = "empty.docx";
+      var _file = "docx/with_TOC.docx";
       // 'https://testing-documentserver-files.s3.amazonaws.com/public_documents/empty.docx'
       var _documentType = "word";
       break;
@@ -25,8 +26,8 @@ var config = function (type) {
   return {
     ip: '192.168.4.138',
     uuid:
-    Date.now().toString(36) +
-    Math.random().toString(36).substring(2).toString(),
+      Date.now().toString(36) +
+      Math.random().toString(36).substring(2).toString(),
     // uuid: 'BCFA2CED',
     source: _file,
     extension: _file.split('.').pop(),
@@ -45,7 +46,7 @@ config = config('docx');
 // EVENTS
 
 var onAppReady = function () {
-  massage =  " _              _   _  _ ___  _  _     _                             \n"
+  massage = " _              _   _  _ ___  _  _     _                             \n"
   massage += "/ \\ |\\ | | \\_/ / \\ |_ |_  |  /  |_    | \\  _   _     ._ _   _  ._ _|_\n"
   massage += "\\_/ | \\| |_ |  \\_/ |  |  _|_ \\_ |_    |_/ (_) (_ |_| | | | (/_ | | |_\n"
   massage += "|_  _| o _|_  _  ._    o  _    ._ _   _.  _|    |                    \n"
