@@ -4,8 +4,8 @@ window.host_ip = '192.168.4.138'
 var config = function (type) {
   switch (type) {
     case 'docx':
-      // var _file = "empty.docx";
-      var _file = "docx/with_TOC.docx";
+      var _file = "empty.docx";
+      // var _file = "docx/with_TOC.docx";
       // 'https://testing-documentserver-files.s3.amazonaws.com/public_documents/empty.docx'
       var _documentType = "word";
       break;
@@ -58,8 +58,19 @@ var onAppReady = function () {
 function createConnector() {
   window.connector = docEditor.createConnector();
 
-  if (typeof window.connector == 'underfined') {
-    alert('connector is not defined');
+  // if (typeof window.connector == 'underfined') {
+  //   alert('connector is not defined');
+  // }
+  var expr = typeof window.connector
+  switch(expr) {
+    case 'underfined':
+      console.error('[ERROR] connector is not defined')
+      break;
+    case 'object':
+      console.log('[LOG] connector exist')
+      break;
+    default:
+      console.log(`Sorry, we are out of ${expr}.`)
   }
 }
 
