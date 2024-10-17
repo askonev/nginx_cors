@@ -15,6 +15,16 @@
 // }
 
 
+// docEditor
+
+function insertImage() {
+  window.docEditor.insertImage({
+    "c": "add",
+    "fileType": "png",
+    "url": `http://${window.host_ip}:9090/images/dev.png`
+  });
+}
+
 // CDE
 
 function getVersion() {
