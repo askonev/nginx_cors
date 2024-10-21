@@ -132,12 +132,12 @@ window.docEditor = new DocsAPI.DocEditor("placeholder", {
     mode: config.mode,
     lang: config.lang,
     customization: {
-      zoom: 120,
+      zoom: 100,
       integrationMode: "embed",
     },
   },
-  height: "100%",
   width: "100%",
+  height: "100%",
   events: {
     "onAppReady": onAppReady,
     "onDocumentReady": createConnector,
