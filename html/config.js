@@ -19,7 +19,7 @@ var config = function (type) {
       break;
     case 'pdf':
       var _documentType = "pdf";
-      var _file = "sample.pdf"
+      var _file = "pdf/sample.pdf"
       break;
   }
 
