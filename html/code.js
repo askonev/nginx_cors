@@ -136,6 +136,17 @@ function pasteHTML() {
   connector.executeMethod("PasteHtml", [html], null);
 }
 
+function searchNext() {
+  connector.executeMethod('SearchNext', [
+    {
+      searchString: 'Hello',
+      matchCase: false,
+    },
+    true 
+  ], 
+  null)
+}
+
 // Content Controles
 
 function addBlockLvlSdt() {
