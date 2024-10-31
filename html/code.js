@@ -142,11 +142,15 @@ function searchNext() {
       searchString: 'Hello',
       matchCase: false,
     },
-    true 
-  ], 
-  null)
+    true
+  ],
+    null)
 }
 
+function moveToNextReviewChange() {
+  connector.executeMethod("MoveToNextReviewChange", [false]);
+}
+  
 // Content Controles
 
 function addBlockLvlSdt() {
