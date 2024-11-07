@@ -150,7 +150,7 @@ function searchNext() {
 function moveToNextReviewChange() {
   connector.executeMethod("MoveToNextReviewChange", [false]);
 }
-  
+
 // Content Controles
 
 function addBlockLvlSdt() {
@@ -408,6 +408,38 @@ function onChangeContentControl() {
 
 function dettach_onChangeContentControl() {
   connector.detachEvent("onChangeContentControl");
+}
+
+function onContextMenuShow() {
+
+  var settings = {
+    guid: connector.guid,
+    items: [
+      {
+        id: 'onConvert',
+        text: 'context item',
+        disabled: true,
+      },
+      {
+        id: 'onChat',
+        text: 'chat item',
+        disabled: false,
+        separator: true
+      },
+    ]
+  }
+
+  // debugger
+
+  connector.attachEvent('onContextMenuShow', function (options) {
+
+    console.log('[onContextMenuShow]', options)
+
+    if (!options) return;
+
+    if (options.type === 'Selection' || options.type === 'Target')
+      this.executeMethod('AddContextMenuItem', [settings]);
+  });
 }
 
 // CSE

@@ -62,7 +62,7 @@ function createConnector() {
   //   alert('connector is not defined');
   // }
   var expr = typeof window.connector
-  switch(expr) {
+  switch (expr) {
     case 'underfined':
       console.error('[ERROR] connector is not defined')
       break;
