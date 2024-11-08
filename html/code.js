@@ -48,6 +48,17 @@ function addHello() {
   );
 }
 
+function addImage() {
+  connector.callCommand(function () {
+    var oDocument = Api.GetDocument()
+    var oParagraph = oDocument.GetElement(0)
+    var oDrawing = Api.CreateImage("https://legacy-api.onlyoffice.com/content/img/docbuilder/examples/coordinate_aspects.png",
+      60 * 36000,
+      35 * 36000)
+    oParagraph.AddDrawing(oDrawing)
+  });
+}
+
 function GetRewiewReport() {
   connector.callCommand(function () {
     var odoc = Api.GetDocument();
@@ -437,8 +448,11 @@ function onContextMenuShow() {
 
     if (!options) return;
 
-    if (options.type === 'Selection' || options.type === 'Target')
+    if (options.type === 'Selection' || options.type === 'Target') {
       this.executeMethod('AddContextMenuItem', [settings]);
+      console.log('onContextMenuShow')
+      connector.executeMethod("InputText", ["clicked: onContextMenuShow"]);
+    }
   });
 }
 
