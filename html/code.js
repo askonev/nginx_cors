@@ -421,6 +421,21 @@ function dettach_onChangeContentControl() {
   connector.detachEvent("onChangeContentControl");
 }
 
+function onClick() {
+
+  connector.attachEvent("onClick", function (isSelectionUse) {
+    console.log(`event: ${isSelectionUse}`);
+  });
+
+}
+
+function onContextMenuClick() {
+  connector.attachEvent("onContextMenuClick", function (id) {
+    var itemId = id;
+    console.log(itemId)
+  });
+}
+
 function onContextMenuShow() {
 
   var settings = {
@@ -429,7 +444,8 @@ function onContextMenuShow() {
       {
         id: 'onConvert',
         text: 'context item',
-        disabled: true,
+        disabled: false,
+        separator: true
       },
       {
         id: 'onChat',
