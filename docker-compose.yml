@@ -13,6 +13,6 @@ services:
         read_only: true
     ports:
       - "9090:80"
-    restart: on-failure
+    restart: unless-stopped
     environment:
       - NGINX_PORT=80
