@@ -429,8 +429,8 @@ function onFocusCC() {
 }
 
 function onChangeContentControl() {
-  connector.attachEvent('onChangeContentControl', function () {
-    console.log("event: onChangeContentControl");
+  connector.attachEvent('onChangeContentControl', function (control) {
+    console.log("event: onChangeContentControl", JSON.stringify(control));
   });
 }
 
@@ -444,9 +444,9 @@ function onClick() {
 
     console.log(`event: ${isSelectionUse}`);
 
-    var selectedOleObject = connector.executeMethod("GetSelectedOleObjects");
+    // var selectedOleObject = connector.executeMethod("GetSelectedOleObjects");
 
-    debugger
+    // debugger
 
   });
 
