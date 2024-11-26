@@ -1,5 +1,5 @@
 
-window.host_ip = '192.168.4.138'
+window.host_ip = '192.168.4.142'
 
 var config = function (type) {
   switch (type) {
@@ -24,7 +24,7 @@ var config = function (type) {
   }
 
   return {
-    ip: '192.168.4.138',
+    ip: '192.168.4.142',
     uuid:
       Date.now().toString(36) +
       Math.random().toString(36).substring(2).toString(),
@@ -127,10 +127,10 @@ window.docEditor = new DocsAPI.DocEditor("placeholder", {
     //     "asc.{7CDB02C9-A0BF-4B56-9A1A-71C860B8498F}"
     //   ],
     //   pluginsData: [
-    //     "http://192.168.4.138:3000/Mendeley/config.json"
+    //     "http://192.168.4.142:3000/Mendeley/config.json"
     //   ]
     // },
-    // callbackUrl: 'http://192.168.4.138:9090',
+    // callbackUrl: 'http://192.168.4.142:9090',
     user: {
       group: "Group1,Group2",
       id: "78e1e841",

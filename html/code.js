@@ -179,6 +179,12 @@ function insertOleObject() {
     bSelect]);
 }
 
+function getCurrentSentence() {
+  connector.executeMethod("GetCurrentSentence", ["entirely"], function (res) {
+    console.log(res)
+  });
+}
+
 // Content Controles
 
 function addBlockLvlSdt() {
@@ -287,7 +293,7 @@ function insertAndRemoveCC() {
       Tag: "text block",
       Lock: 3,
     },
-    Url: `http://192.168.4.138:9090/files/${dir}/${file}`,
+    Url: `http://192.168.4.142:9090/files/${dir}/${file}`,
     Format: "docx",
   };
 
@@ -439,28 +445,29 @@ function dettach_onChangeContentControl() {
 }
 
 function onClick() {
-
   connector.attachEvent("onClick", function (isSelectionUse) {
-
     console.log(`event: ${isSelectionUse}`);
-
     // var selectedOleObject = connector.executeMethod("GetSelectedOleObjects");
 
     // debugger
-
   });
-
 }
 
 function onContextMenuClick() {
   connector.attachEvent("onContextMenuClick", function (id) {
-    var itemId = id;
-    console.log(itemId)
+    switch (id) {
+      case 'onConvert': {
+        console.log('onConvert')
+      }
+      case 'onChat': {
+        console.log('onChat')
+      }
+
+    }
   });
 }
 
 function onContextMenuShow() {
-
   var settings = {
     guid: connector.guid,
     items: [
@@ -478,19 +485,14 @@ function onContextMenuShow() {
       },
     ]
   }
-
   // debugger
-
   connector.attachEvent('onContextMenuShow', function (options) {
-
-    console.log('[onContextMenuShow]', options)
-
+    // console.log('[onContextMenuShow]', options)
     if (!options) return;
-
     if (options.type === 'Selection' || options.type === 'Target') {
       this.executeMethod('AddContextMenuItem', [settings]);
-      console.log('onContextMenuShow')
-      connector.executeMethod("InputText", ["clicked: onContextMenuShow"]);
+      // console.log('onContextMenuShow')
+      // connector.executeMethod("InputText", ["clicked: onContextMenuShow"]);
     }
   });
 }
