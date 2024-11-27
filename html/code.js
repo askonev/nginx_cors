@@ -185,6 +185,14 @@ function getCurrentSentence() {
   });
 }
 
+function moveToNextReviewChange() {
+  connector.executeMethod("MoveToNextReviewChange", [true]);
+}
+
+function moveToPreviousReviewChange() {
+  connector.executeMethod("MoveToNextReviewChange", [false]);
+}
+
 // Comments
 
 function addCommentViaElement() {
