@@ -185,6 +185,29 @@ function getCurrentSentence() {
   });
 }
 
+// Comments
+
+function addCommentViaElement() {
+  connector.callCommand(function () {
+    var oDocument = Api.GetDocument();
+    var oParagraph = oDocument.GetElement(0);
+    oParagraph.AddText("This is just a sample text");
+    Api.AddComment(oParagraph, "comment", "Makoto Senpai");
+  });
+}
+
+function setUserId() {
+  connector.callCommand(function () {
+    var oDocument = Api.GetDocument();
+    var aComments = oDocument.GetAllComments();
+
+    aComments.forEach(element => {
+      element.SetUserId('uid-2');
+      element.SetAuthorName('Popato Markes')
+    });
+  });
+}
+
 // Content Controles
 
 function addBlockLvlSdt() {
