@@ -193,6 +193,32 @@ function moveToPreviousReviewChange() {
   connector.executeMethod("MoveToNextReviewChange", [false]);
 }
 
+function searchAndReplace() {
+  var prop = {
+    "NewLineParagraph": false,
+  }
+
+  connector.executeMethod("GetSelectedText", [prop], function (selectedText) {
+    console.log(selectedText)
+
+    const index = selectedText.length - 1
+
+    console.log(
+      `Character code ${selectedText.charCodeAt(index)} is equal to ${selectedText.charAt(index)}`,
+    );
+
+    var text = "replacement text";
+
+    var replaceObject = {
+      "searchString": selectedText,
+      "replaceString": text,
+      "matchCase": false,
+    };
+
+    connector.executeMethod("SearchAndReplace", [replaceObject]);
+  })
+}
+
 // Comments
 
 function addCommentViaElement() {
