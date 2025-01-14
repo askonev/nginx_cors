@@ -195,7 +195,10 @@ function moveToPreviousReviewChange() {
 
 function searchAndReplace() {
   var prop = {
+    "NewLine": true,
+    "NewLineSeparator": '^l',
     "NewLineParagraph": false,
+    "ParaSeparator": "\p"
   }
 
   connector.executeMethod("GetSelectedText", [prop], function (selectedText) {
@@ -206,6 +209,10 @@ function searchAndReplace() {
     console.log(
       `Character code ${selectedText.charCodeAt(index)} is equal to ${selectedText.charAt(index)}`,
     );
+
+    // selectedText = selectedText.replaceAll("\r", "^l")
+    // TODO: ^p not yet supported for replacement
+    // selectedText = selectedText.replaceAll("\\p", "^?")
 
     var text = "replacement text";
 
