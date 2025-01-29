@@ -5,7 +5,8 @@ var config = function (type) {
   switch (type) {
     case 'docx':
       var _file = "empty.docx";
-      // var _file = "docx/with_TOC.docx";
+      // var _file = "docx/blockLvlSdt_with_TOC_and_page_break.docx";
+      // var _file = "docx/document_a352554c_1.docx";
       // 'https://testing-documentserver-files.s3.amazonaws.com/public_documents/empty.docx'
       var _documentType = "word";
       break;
@@ -28,7 +29,7 @@ var config = function (type) {
     uuid:
       Date.now().toString(36) +
       Math.random().toString(36).substring(2).toString(),
-    // uuid: 'BCFA2CED',
+    // uuid: 'BCFA2CD',
     source: _file,
     extension: _file.split('.').pop(),
     url: `http://${window.host_ip}:9090/files/${_file}`,

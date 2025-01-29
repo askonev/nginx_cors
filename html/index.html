@@ -10,110 +10,114 @@
 </head>
 
 <body>
-  <div class="lnav">
-    <div>
-      <h3>CDE</h3>
-      <div class="dropdown">
-        <button>docEditor</button>
-        <div class="dropdown-content">
-          <button onclick="javascript:insertImage()">insertImage</button>
+  <div class="container">
+    <div class="lnav">
+      <div>
+        <h3>CDE</h3>
+        <div class="dropdown">
+          <button>docEditor</button>
+          <div class="dropdown-content">
+            <button onclick="javascript:insertImage()">insertImage</button>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button>CDE</button>
+          <div class="dropdown-content">
+            <button onclick="javascript:addTOC()">AddTOC</button>
+            <button onclick="javascript:insertContentControlAfterHeader()">insertContentControlAfterHeader</button>
+            <button onclick="javascript:getVersion()">getVersion</button>
+            <button onclick="javascript:addHello();">addHello & Comment</button>
+            <button onclick="javascript:addImage();">addImage</button>
+            <button onclick="javascript:GetRewiewReport();">GetRewiewReport</button>
+            <button onclick="javascript:pullMetaChange()">pull metaChange</button>
+            <!-- <button onclick="javascript:TrackRevisionON();" style="height:50px; width:100px;">TrackRevisionON</button>
+              <button onclick="javascript:TrackRevisionOFF();" style="height:50px; width:100px;">TrackRevisionOFF</button> -->
+            <button onclick="javascript:getSelectionType()">getSelectionType</button>
+            <button onclick="javascript:callCommand()">callCommand</button>
+            <button onclick="javascript:pasteHTML()">pasteHTML</button>
+            <button onclick="javascript:searchNext()">searchNext</button>
+            <button onclick="javascript:moveToNextReviewChange()">moveToNextReviewChange</button>
+            <button onclick="javascript:insertOleObject()">insertOleObject</button>
+            <button onclick="javascript:getCurrentSentence()">getCurrentSentence</button>
+            <button onclick="javascript:moveToNextReviewChange()">moveToNextReviewChange</button>
+            <button onclick="javascript:moveToPreviousReviewChange()">moveToPreviousReviewChange</button>
+            <button onclick="javascript:searchAndReplace()">searchAndReplace</button>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button>Comments</button>
+          <div class="dropdown-content">
+            <button onclick="javascript:addCommentViaElement();">addComment</button>
+            <button onclick="javascript:getAllComments();">getAllComments</button>
+            <button onclick="javascript:setUserId()">setUserId</button>
+          </div>
+        </div>
+        <div class="dropdown">
+          <button>Content Controls</button>
+          <div class="dropdown-content">
+            <button onclick="javascript:addBlockLvlSdt();">addBlockLvlSdt</button>
+            <button onclick="javascript:addInlineLvlSdt();">addInlineLvlSdt</button>
+            <button onclick="javascript:getAllContentControls();">getAllCC</button>
+            <button onclick="javascript:getCurrentContentControlPr()">getCurrentCCPr</button>
+            <button onclick="javascript:setPlaseHolder()">setPlaceHolder</button>
+            <button onclick="javascript:insertAndRemoveCC()">insert&RemoveCC</button>
+            <button onclick="javascript:insertAndReplaceProps();">insert&ReplaceProps</button>
+            <button onclick="javascript:attachOnChangeContentControl();">onChangeCC</button>
+            <button onclick="javascript:remove_cc()">RemoveCC</button>
+            <button onclick="javascript:startAction()">startAction</button>
+            <button onclick="javascript:blockUnblockAllCC()">blockUnblockAllCC</button>
+          </div>
         </div>
       </div>
-      <div class="dropdown">
-        <button>CDE</button>
-        <div class="dropdown-content">
-          <button onclick="javascript:getVersion()">getVersion</button>
-          <button onclick="javascript:addHello();">addHello & Comment</button>
-          <button onclick="javascript:addImage();">addImage</button>
-          <button onclick="javascript:GetRewiewReport();">GetRewiewReport</button>
-          <button onclick="javascript:pullMetaChange()">pull metaChange</button>
-          <!-- <button onclick="javascript:TrackRevisionON();" style="height:50px; width:100px;">TrackRevisionON</button>
-            <button onclick="javascript:TrackRevisionOFF();" style="height:50px; width:100px;">TrackRevisionOFF</button> -->
-          <button onclick="javascript:getSelectionType()">getSelectionType</button>
-          <button onclick="javascript:callCommand()">callCommand</button>
-          <button onclick="javascript:pasteHTML()">pasteHTML</button>
-          <button onclick="javascript:searchNext()">searchNext</button>
-          <button onclick="javascript:moveToNextReviewChange()">moveToNextReviewChange</button>
-          <button onclick="javascript:insertOleObject()">insertOleObject</button>
-          <button onclick="javascript:getCurrentSentence()">getCurrentSentence</button>
-          <button onclick="javascript:moveToNextReviewChange()">moveToNextReviewChange</button>
-          <button onclick="javascript:moveToPreviousReviewChange()">moveToPreviousReviewChange</button>
-          <button onclick="javascript:searchAndReplace()">searchAndReplace</button>
+      <div>
+        <h3>CSE</h3>
+        <div class="dropdown">
+          <button>CSE</button>
+          <div class="dropdown-content">
+            <button onclick="javascript:addComment()">addComment</button>
+            <button onclick="javascript:setAscScope()">setAscScope</button>
+          </div>
         </div>
       </div>
-      <div class="dropdown">
-        <button>Comments</button>
-        <div class="dropdown-content">
-          <button onclick="javascript:addCommentViaElement();">addComment</button>
-          <button onclick="javascript:getAllComments();">getAllComments</button>
-          <button onclick="javascript:setUserId()">setUserId</button>
+      <div>
+        <h3>CPE</h3>
+        <div class="dropdown">
+          <button>CPE</button>
+          <div class="dropdown-content">
+            <button id="createSlide" onclick="javascript:createSlide()">Create Slide</button>
+          </div>
         </div>
       </div>
-      <div class="dropdown">
-        <button>Content Controls</button>
-        <div class="dropdown-content">
-          <button onclick="javascript:addBlockLvlSdt();">addBlockLvlSdt</button>
-          <button onclick="javascript:addInlineLvlSdt();">addInlineLvlSdt</button>
-          <button onclick="javascript:getAllContentControls();">getAllCC</button>
-          <button onclick="javascript:getCurrentContentControlPr()">getCurrentCCPr</button>
-          <button onclick="javascript:setPlaseHolder()">setPlaceHolder</button>
-          <button onclick="javascript:insertAndRemoveCC()">insert&RemoveCC</button>
-          <button onclick="javascript:insertAndReplaceProps();">insert&ReplaceProps</button>
-          <button onclick="javascript:attachOnChangeContentControl();">onChangeCC</button>
-          <button onclick="javascript:remove_cc()">RemoveCC</button>
-          <button onclick="javascript:startAction()">startAction</button>
-          <button onclick="javascript:blockUnblockAllCC()">blockUnblockAllCC</button>
+      <div>
+        <h3>Common</h3>
+        <div class="dropdown">
+          <button>common</button>
+          <div class="dropdown-content">
+            <button onclick="javascript:getSelectedText()">getSelectedText</button>
+            <button onclick="javascript:getAllComments()">getAllComments</button>
+          </div>
+        </div>
+      </div>
+      <div>
+        <h3>Events</h3>
+        <div class="dropdown">
+          <button>Events</button>
+          <div class="dropdown-content">
+            <button onclick="javascript:onEncryption()">hide_onEncryption</button>
+            <button onclick="javascript:onBlureCC()">onBlureCC</button>
+            <button onclick="javascript:onFocusCC()">onFocusCC</button>
+            <button onclick="javascript:onChangeContentControl()">onChangeCC</button>
+            <button onclick="javascript:dettach_onChangeContentControl()">dettach_onChangeCC</button>
+            <button onclick="javascript:onContextMenuShow()">onContextMenuShow</button>
+            <button onclick="javascript:onClick()">onClick</button>
+            <button onclick="javascript:onContextMenuClick()">onContextMenuClick</button>
+          </div>
         </div>
       </div>
     </div>
-    <div>
-      <h3>CSE</h3>
-      <div class="dropdown">
-        <button>CSE</button>
-        <div class="dropdown-content">
-          <button onclick="javascript:addComment()">addComment</button>
-          <button onclick="javascript:setAscScope()">setAscScope</button>
-        </div>
-      </div>
+    <div class="editor">
+      <div id="placeholder"></div>
     </div>
-    <div>
-      <h3>CPE</h3>
-      <div class="dropdown">
-        <button>CPE</button>
-        <div class="dropdown-content">
-          <button id="createSlide" onclick="javascript:createSlide()">Create Slide</button>
-        </div>
-      </div>
-    </div>
-    <div>
-      <h3>Common</h3>
-      <div class="dropdown">
-        <button>common</button>
-        <div class="dropdown-content">
-          <button onclick="javascript:getSelectedText()">getSelectedText</button>
-          <button onclick="javascript:getAllComments()">getAllComments</button>
-        </div>
-      </div>
-    </div>
-    <div>
-      <h3>Events</h3>
-      <div class="dropdown">
-        <button>Events</button>
-        <div class="dropdown-content">
-          <button onclick="javascript:onEncryption()">hide_onEncryption</button>
-          <button onclick="javascript:onBlureCC()">onBlureCC</button>
-          <button onclick="javascript:onFocusCC()">onFocusCC</button>
-          <button onclick="javascript:onChangeContentControl()">onChangeCC</button>
-          <button onclick="javascript:dettach_onChangeContentControl()">dettach_onChangeCC</button>
-          <button onclick="javascript:onContextMenuShow()">onContextMenuShow</button>
-          <button onclick="javascript:onClick()">onClick</button>
-          <button onclick="javascript:onContextMenuClick()">onContextMenuClick</button>
-        </div>
-      </div>
-    </div>
-  </div>
-  <div class="editor">
-    <div id="placeholder"></div>
   </div>
   <script type="text/javascript" src="config.js"></script>
 </body>

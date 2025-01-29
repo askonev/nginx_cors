@@ -27,6 +27,222 @@ function insertImage() {
 
 // CDE
 
+function addTOC() {
+  connector.callCommand(() => {
+    var oDocument = Api.GetDocument();
+    var oNewDocumentStyle = oDocument.GetStyle("Heading 1");
+    var oParagraph = oDocument.GetElement(0);
+    oParagraph.SetStyle(oNewDocumentStyle);
+    oParagraph.AddText("Heading 1");
+    oNewDocumentStyle = oDocument.GetStyle("Heading 2");
+    oParagraph = Api.CreateParagraph();
+    oParagraph.SetStyle(oNewDocumentStyle);
+    oParagraph.AddText("Heading 2");
+    oDocument.Push(oParagraph);
+    var oTocPr = { "ShowPageNums": true, "RightAlgn": true, "LeaderType": "dot", "FormatAsLinks": true, "BuildFrom": { "OutlineLvls": 9 }, "TocStyle": "standard" };
+    oDocument.AddTableOfContents(oTocPr);
+    oNewDocumentStyle = oDocument.GetStyle("Heading 3");
+    oParagraph = Api.CreateParagraph();
+    oParagraph.SetStyle(oNewDocumentStyle);
+    oParagraph.AddText("Heading 3");
+    oDocument.AddElement(3, oParagraph);
+    oDocument.UpdateAllTOC(false);
+  })
+}
+
+function insertContentControlAfterHeader() {
+
+  var section_id = '4.1.1.1'
+
+  // var content = "Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
+  // var content = "<h1>This is the Main Header</h1><h2>This is the Sub Header</h2>"
+  // var content = `
+  // <ul>
+  //   <li>Item 1
+  //     <ul>
+  //       <li>Subitem 1.1</li>
+  //       <li>Subitem 1.2</li>
+  //     </ul>
+  //   </li>
+  //   <li>Item 2
+  //     <ul>
+  //       <li>Subitem 2.1</li>
+  //       <li>Subitem 2.2
+  //         <ul>
+  //           <li>Subitem 2.2.1</li>
+  //           <li>Subitem 2.2.2</li>
+  //         </ul>
+  //       </li>
+  //     </ul>
+  //   </li>
+  // </ul>
+  // `
+  var content = `\n    <!DOCTYPE html>\n    <html>\n    <head>\n        <meta charset=\"UTF-8\">\n        <style>\n        body {\n  font-family: 'Times New Roman', serif;\n  font-size: 24pt;\n  line-height: 28pt;\n  margin: 30pt;\n}\np {\n  font-family: 'Times New Roman', serif;\n  font-size: 24pt;\n  margin-top: 6pt;\n  margin-bottom: 6pt;\n}\np.default {\n  font-family: 'Times New Roman', serif;\n  font-size: 24pt;\n  font-weight: bold;\n  text-transform: uppercase;\n}\ntd, th {\n  font-family: 'Times New Roman', serif;\n  font-size: 24pt;\n  font-weight: bold;\n  border: 0.75pt solid #ddd;\n  padding: 6pt;\n  text-align: left;\n}\nth {\n  background-color: #f4f4f4;\n}\nh1, h2, h3, h4 {\n  font-family: 'Times New Roman', serif;\n}\nh1, h2 {\n  font-size: 28pt;\n  color: #333;\n  margin-top: 12pt;\n  margin-bottom: 6pt;\n  border-bottom: 1.5pt solid #ddd;\n  padding-bottom: 7.5pt;\n}\nh3, h4 {\n  font-size: 12pt;\n  color: #555;\n  margin-top: 9pt;\n  margin-bottom: 6pt;\n}\ncode {\n  background-color: #f8f8f8;\n  padding: 1.5pt 3pt;\n  border-radius: 3pt;\n}\n\n        </style>\n    </head>\n    <body>\n        <p>The document revolves around a clinical trial of an investigational drug known as DS-XXXX, which is being examined for its efficacy, safety, and pharmacokinetics in treating various conditions, specifically focusing on solid tumors and low HER2 expression breast cancer. The trial is conducted under strict ethical and regulatory guidelines, incorporating phases 1-4 to comprehensively assess the drug's impact on patient survival outcomes and response rates.</p>\n<p>The trials are multi-faceted, involving different entities, protocols, assessments, and safety procedures. Participants undergo comprehensive evaluation, including tumor imaging via CT and MRI, biomarker assessments, and regular monitoring of adverse events. The protocol emphasizes randomized, double-blind, placebo-controlled study designs. Key assessments and endpoints like progression-free survival (PFS), overall survival (OS), and objective response rates (ORR) follow standardized criteria such as RECIST v1.1.</p>\n<p>Data integrity and participant safety are paramount, with committees overseeing various facets of the trials, like data monitoring and ethical compliance. The document also details discontinuation records, adverse events identification (including Hy's Law cases), and participant demographics, underscoring the trials' rigorous methodological framework aimed at deriving reliable data that can pave the way for future medicinal developments.</p>\n    </body>\n    </html>\n`
+  
+  // var content = `
+  //     <head>\n
+  //       <meta charset=\"UTF-8\">\n <style>
+  //           \n body {
+  //               \n font-family: 'Times New Roman', serif;
+  //               \n font-size: 24pt;
+  //               \n line-height: 28pt;
+  //               \n margin: 30pt;
+  //               \n
+  //           }
+
+  //           \np {
+  //               \n font-family: 'Times New Roman', serif;
+  //               \n font-size: 24pt;
+  //               \n margin-top: 6pt;
+  //               \n margin-bottom: 6pt;
+  //               \n
+  //           }
+
+  //           \np.default {
+  //               \n font-family: 'Times New Roman', serif;
+  //               \n font-size: 24pt;
+  //               \n font-weight: bold;
+  //               \n text-transform: uppercase;
+  //               \n
+  //           }
+
+  //           \ntd,
+  //           th {
+  //               \n font-family: 'Times New Roman', serif;
+  //               \n font-size: 24pt;
+  //               \n font-weight: bold;
+  //               \n border: 0.75pt solid #ddd;
+  //               \n padding: 6pt;
+  //               \n text-align: left;
+  //               \n
+  //           }
+
+  //           \nth {
+  //               \n background-color: #f4f4f4;
+  //               \n
+  //           }
+
+  //           \nh1,
+  //           h2,
+  //           h3,
+  //           h4 {
+  //               \n font-family: 'Times New Roman', serif;
+  //               \n
+  //           }
+
+  //           \nh1,
+  //           h2 {
+  //               \n font-size: 28pt;
+  //               \n color: #333;
+  //               \n margin-top: 12pt;
+  //               \n margin-bottom: 6pt;
+  //               \n border-bottom: 1.5pt solid #ddd;
+  //               \n padding-bottom: 7.5pt;
+  //               \n
+  //           }
+
+  //           \nh3,
+  //           h4 {
+  //               \n font-size: 12pt;
+  //               \n color: #555;
+  //               \n margin-top: 9pt;
+  //               \n margin-bottom: 6pt;
+  //               \n
+  //           }
+
+  //           \ncode {
+  //               \n background-color: #f8f8f8;
+  //               \n padding: 1.5pt 3pt;
+  //               \n border-radius: 3pt;
+  //               \n
+  //           }
+
+  //           \n\n
+  //       </style>\n
+  //   </head>\n
+
+  //   <body>\n <p>The document revolves around a clinical trial of an investigational drug known as DS-XXXX, which is being
+  //           examined for its efficacy, safety, and pharmacokinetics in treating various conditions, specifically focusing on
+  //           solid tumors and low HER2 expression breast cancer. The trial is conducted under strict ethical and regulatory
+  //           guidelines, incorporating phases 1-4 to comprehensively assess the drug's impact on patient survival outcomes
+  //           and response rates.</p>\n<p>The trials are multi-faceted, involving different entities, protocols, assessments,
+  //           and safety procedures. Participants undergo comprehensive evaluation, including tumor imaging via CT and MRI,
+  //           biomarker assessments, and regular monitoring of adverse events. The protocol emphasizes randomized,
+  //           double-blind, placebo-controlled study designs. Key assessments and endpoints like progression-free survival
+  //           (PFS), overall survival (OS), and objective response rates (ORR) follow standardized criteria such as RECIST
+  //           v1.1.</p>\n<p>Data integrity and participant safety are paramount, with committees overseeing various facets of
+  //           the trials, like data monitoring and ethical compliance. The document also details discontinuation records,
+  //           adverse events identification (including Hy's Law cases), and participant demographics, underscoring the trials'
+  //           rigorous methodological framework aimed at deriving reliable data that can pave the way for future medicinal
+  //           developments.</p>\n </body>\n
+
+  //   </html>\n
+  // `
+
+  Asc.scope.result = {
+    section_id: section_id,
+    prompt_id: `block_lvl_sdt_prompt_id_${section_id}`,
+    content: content,
+    type: 'html'
+  }
+
+  try {
+    var isNoCalc = false
+
+    connector.callCommand(() => {
+      const { section_id, prompt_id, content } = Asc.scope.result;
+
+      var oDocument = Api.GetDocument();
+      var aHParagraph = oDocument.GetAllHeadingParagraphs();
+
+      for (var i = 0; i < aHParagraph.length; i++) {
+        if (aHParagraph[i].GetText().startsWith(section_id)) {
+        // if (aHParagraph[i].GetText().endsWith(section_id)) {
+          var selectionHParagraph = aHParagraph[i]
+          break
+        }
+      }
+
+      if (selectionHParagraph) {
+        var oTempParagraph = Api.CreateParagraph()
+        var beRNewPara = true;
+        selectionHParagraph.InsertParagraph(oTempParagraph, "after", beRNewPara);
+        var oBlockLvlSdt = Api.CreateBlockLvlSdt();
+        oBlockLvlSdt.GetContent().GetElement(0).AddText("");
+        oBlockLvlSdt.SetTag(prompt_id);
+        oTempParagraph.ReplaceByElement(oBlockLvlSdt);
+      }
+
+    }, (data) => {
+      console.log(Asc.scope.result)
+      const { section_id, prompt_id, content, type } = Asc.scope.result;
+
+      connector.executeMethod("GetAllContentControls",
+        [],
+        (arCC) => {
+          for (var i = 0; i < arCC.length; i++) {
+            if (arCC[i].Tag === prompt_id) {
+              connector.executeMethod("MoveCursorToContentControl",
+                [arCC[i].InternalId, true]
+              )
+              if (type === 'text ') {
+                connector.executeMethod("PasteText", [content]);
+              }
+              else {
+                connector.executeMethod("PasteHtml", [content]);
+              }
+            }
+          }
+        })
+    },
+      isNoCalc
+    );
+
+  } catch (error) {
+    console.error(error)
+  }
+}
+
 function getVersion() {
   connector.executeMethod("GetVersion", [], function (version) {
     console.log(version);
