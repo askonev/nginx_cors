@@ -529,21 +529,6 @@ function getAllContentControls() {
 function getCurrentContentControlPr() {
   connector.executeMethod("GetCurrentContentControlPr", [], (callback) => {
     console.log(callback);
-
-    // var arrDocuments = [
-    //   {
-    //     Props: {
-    //       Id: 100,
-    //       InternalId: callback.InternalId,
-    //       Tag: "CC_Tag",
-    //       Lock: 3,
-    //       PlaceHolderText: "custom",
-    //     },
-    //     Script:
-    //       "var oParagraph = Api.CreateParagraph();oParagraph.AddText('Hello world!');Api.GetDocument().InsertContent([oParagraph]);",
-    //   },
-    // ];
-    // connector.executeMethod("InsertAndReplaceContentControls", [arrDocuments]);
   });
 }
 
@@ -608,9 +593,10 @@ function insertAndReplaceProps() {
               Appearance: 1,
               Color: { R: 255, G: 129, B: 44 },
             },
-            Script: "var oParagraph = Api.CreateParagraph();\n" +
-              "oParagraph.AddText('Updated container');\n" +
-              "Api.GetDocument().InsertContent([oParagraph], false);\n",
+            Script: "var oDocument = Api.GetDocument();\n" +
+                    "var oParagraph = Api.CreateParagraph();\n" +
+                    "oParagraph.AddText('。℃');\n" +
+                    "Api.GetDocument().InsertContent([oParagraph], true, null);\n",
           },
         ];
         connector.executeMethod("InsertAndReplaceContentControls", [
